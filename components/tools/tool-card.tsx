@@ -11,6 +11,7 @@ interface ToolCardProps {
     href: string;
     color?: string;
     badge?: string;
+    tier?: "basic";
     comingSoon?: boolean;
 }
 
@@ -21,6 +22,7 @@ export default function ToolCard({
     href,
     color = "bg-primary/10",
     badge,
+    tier,
     comingSoon = false,
 }: ToolCardProps) {
     const { toolName, toolDescription, badgeLabel } = useToolText();
@@ -63,6 +65,40 @@ export default function ToolCard({
                 ${comingSoon ? "" : "hover:-translate-y-[5px] hover:scale-[1.02]"}
             `}
         >
+            {/* "B" tag: free-to-use basic tools, no per-tool cap on any plan.
+                Shown at every width, unlike the badge pill below which only
+                appears from lg — this is a plan-relevant fact, not decoration. */}
+            {tier === "basic" && (
+                <span
+                    className="
+                        absolute
+                        right-1.5
+                        top-1.5
+                        z-10
+                        flex
+                        h-4
+                        w-4
+                        items-center
+                        justify-center
+                        rounded-full
+                        bg-emerald-500
+                        text-[8px]
+                        font-bold
+                        text-white
+                        shadow-sm
+                        sm:right-2.5
+                        sm:top-2.5
+                        sm:h-5
+                        sm:w-5
+                        sm:text-[10px]
+                    "
+                    title="Basic tool — free on every plan"
+                    aria-label="Basic tool, free on every plan"
+                >
+                    B
+                </span>
+            )}
+
             {/* Icon */}
             <div
                 className={`
@@ -103,7 +139,7 @@ export default function ToolCard({
                 top-right corner from sm. */}
             {(comingSoon || badge) && (
                 <span
-                    className="
+                    className={`
                         hidden
                         mt-2
                         shrink-0
@@ -118,13 +154,13 @@ export default function ToolCard({
                         text-primary
                         lg:inline-flex
                         lg:absolute
-                        lg:right-4
+                        ${tier === "basic" ? "lg:right-9" : "lg:right-4"}
                         lg:top-4
                         lg:mt-0
                         lg:px-2.5
                         lg:py-1
                         lg:text-[10px]
-                    "
+                    `}
                 >
                     {comingSoon ? badgeLabel("Soon") : badgeLabel(badge!)}
                 </span>

@@ -27,6 +27,8 @@ export interface Tool {
     href: string;
     category: string;
     badge?: string;
+    /** Small corner tag for tools open on every plan, incl. Free, with no per-tool cap. */
+    tier?: "basic";
     /** No page exists yet — rendered as a non-clickable card instead of a dead link. */
     comingSoon?: boolean;
 }
@@ -39,6 +41,7 @@ export const tools: Tool[] = [
         href: "/merge-pdf",
         category: "Organize",
         badge: "Popular",
+        tier: "basic",
     },
     {
         name: "Split PDF",
@@ -46,6 +49,7 @@ export const tools: Tool[] = [
         icon: Scissors,
         href: "/split-pdf",
         category: "Organize",
+        tier: "basic",
     },
     {
         name: "Compress PDF",
@@ -53,6 +57,7 @@ export const tools: Tool[] = [
         icon: Minimize2,
         href: "/compress-pdf",
         category: "Edit",
+        tier: "basic",
     },
     {
         name: "Rotate PDF",
@@ -60,6 +65,7 @@ export const tools: Tool[] = [
         icon: RotateCw,
         href: "/rotate-pdf",
         category: "Organize",
+        tier: "basic",
     },
     {
         name: "PDF to Word",
@@ -82,6 +88,7 @@ export const tools: Tool[] = [
         icon: FileImage,
         href: "/pdf-to-image",
         category: "Convert",
+        tier: "basic",
     },
     {
         name: "Image to PDF",
@@ -89,6 +96,7 @@ export const tools: Tool[] = [
         icon: ImagePlus,
         href: "/image-to-pdf",
         category: "Convert",
+        tier: "basic",
     },
     {
         name: "PDF to Excel",
