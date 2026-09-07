@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import {
     ADSENSE_CLIENT_ID,
     isAdSenseEnabled,
@@ -26,7 +26,7 @@ type InArticleAdProps = {
     /** Reserved vertical space (px) to reduce layout shift. Default 250. */
     minHeight?: number;
     className?: string;
-    style?: React.CSSProperties;
+    style?: CSSProperties;
 };
 
 export default function InArticleAd({

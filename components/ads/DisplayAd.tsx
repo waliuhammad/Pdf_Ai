@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import {
     ADSENSE_CLIENT_ID,
     isAdSenseEnabled,
@@ -32,7 +32,7 @@ type DisplayAdProps = {
     /** Reserved vertical space (px) to reduce layout shift. Default 90. */
     minHeight?: number;
     className?: string;
-    style?: React.CSSProperties;
+    style?: CSSProperties;
 };
 
 export default function DisplayAd({
