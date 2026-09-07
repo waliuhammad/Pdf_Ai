@@ -83,8 +83,7 @@ function limitRefusal(usage: UsageResult): NextResponse {
     const notIncluded = hitCategory && usage.categoryLimit === 0;
 
     const message = notIncluded
-        ? `${CATEGORY_LABEL[usage.blockedBy as string] ?? "This tool"} is not included on the ` +
-        `${usage.plan} plan. Upgrade to use it.`
+        ? `This PDF tool is not included on the ${usage.plan} plan. Upgrade to use it.`
         : hitCategory
             ? `Daily ${CATEGORY_LABEL[usage.blockedBy as string] ?? usage.blockedBy} limit reached ` +
             `(${cap(usage.categoryUsed!, usage.categoryLimit!)}/${usage.categoryLimit} on the ${usage.plan} plan). ` +
