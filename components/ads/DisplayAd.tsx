@@ -9,6 +9,7 @@ import {
     showDevPlaceholder,
 } from "@/lib/adsense";
 import AdContainer from "./AdContainer";
+import { useAdsAllowed } from "./use-ads-allowed";
 
 /**
  * Reusable responsive display ad (banner / sidebar).
@@ -45,11 +46,12 @@ export default function DisplayAd({
     style,
 }: DisplayAdProps) {
     const pushed = useRef(false);
+    const adsAllowed = useAdsAllowed();
 
     useEffect(() => {
         // No push for a unit that will not render: a push with no matching
         // <ins> is what produces "All ins elements already have ads in them".
-        if (pushed.current || !isAdSenseEnabled() || !isValidAdSlot(slot)) return;
+        if (pushed.current || !adsAllowed || !isAdSenseEnabled() || !isValidAdSlot(slot)) return;
         try {
             const w = window as unknown as { adsbygoogle?: unknown[] };
             w.adsbygoogle = w.adsbygoogle || [];
@@ -58,7 +60,9 @@ export default function DisplayAd({
         } catch {
             /* never break the app if an ad fails to load */
         }
-    }, [slot]);
+    }, [slot, adsAllowed]);
+
+    if (!adsAllowed) return null;
 
     if (showDevPlaceholder()) {
         return (

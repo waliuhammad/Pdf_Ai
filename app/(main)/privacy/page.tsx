@@ -369,7 +369,54 @@ export default function PrivacyPage() {
                 </p>
             </Section>
 
-            {/* 12. Changes */}
+            {/* 12. Advertising */}
+            <Section heading="Advertising">
+                <p className="mb-4 text-gray-800 dark:text-purple-100">
+                    PDFAI may show advertising on some pages. We use Google
+                    AdSense to serve those ads. We do not use the contents of
+                    your documents for advertising, and your files are never
+                    shared with advertisers.
+                </p>
+
+                <p className="mb-4 text-gray-800 dark:text-purple-100">
+                    Third-party vendors, including Google, use cookies to serve
+                    ads based on your prior visits to this or other websites.
+                    Google&apos;s use of advertising cookies enables it and its
+                    partners to serve ads to you based on your visit to our site
+                    and other sites on the internet.
+                </p>
+
+                <p className="mb-4 text-gray-800 dark:text-purple-100">
+                    You can opt out of personalised advertising by visiting{" "}
+                    <a
+                        href="https://www.google.com/settings/ads"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline hover:text-[var(--primary)]"
+                    >
+                        Google Ads Settings
+                    </a>
+                    . You can also opt out of a third-party vendor&apos;s use of
+                    cookies for personalised advertising at{" "}
+                    <a
+                        href="https://www.aboutads.info/choices/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline hover:text-[var(--primary)]"
+                    >
+                        aboutads.info
+                    </a>
+                    .
+                </p>
+
+                <p className="text-gray-800 dark:text-purple-100">
+                    Paid plans that include an ad-free experience are not shown
+                    advertising, and no advertising cookies are requested on
+                    their behalf while they are signed in.
+                </p>
+            </Section>
+
+            {/* 13. Changes */}
             <Section heading="Changes to This Privacy Policy">
                 <p className="mb-4 text-gray-800 dark:text-purple-100">
                     We may update this Privacy Policy from time to time to
@@ -386,7 +433,7 @@ export default function PrivacyPage() {
                 </p>
             </Section>
 
-            {/* 13. Contact */}
+            {/* 14. Contact */}
             <Section heading="Contact Us">
                 <p className="mb-4 text-gray-800 dark:text-purple-100">
                     If you have questions about privacy, document processing,
