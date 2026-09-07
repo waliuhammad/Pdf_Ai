@@ -11,8 +11,9 @@ interface ToolCardProps {
     href: string;
     color?: string;
     badge?: string;
-    tier?: "basic";
     comingSoon?: boolean;
+    /** Spends from the advanced allowance, which Free does not have. */
+    advanced?: boolean;
 }
 
 export default function ToolCard({
@@ -22,8 +23,8 @@ export default function ToolCard({
     href,
     color = "bg-primary/10",
     badge,
-    tier,
     comingSoon = false,
+    advanced = false,
 }: ToolCardProps) {
     const { toolName, toolDescription, badgeLabel } = useToolText();
     const shownName = toolName(href, name);
@@ -65,42 +66,6 @@ export default function ToolCard({
                 ${comingSoon ? "" : "hover:-translate-y-[5px] hover:scale-[1.02]"}
             `}
         >
-            {/* "B" tag: free-to-use basic tools, no per-tool cap on any plan.
-                Shown at every width, unlike the badge pill below which only
-                appears from lg — this is a plan-relevant fact, not decoration. */}
-           {/* "B" tag: free-to-use basic tools, no per-tool cap on any plan.
-    Shown at every width, unlike the badge pill below which only
-    appears from lg — this is a plan-relevant fact, not decoration. */}
-{tier === "basic" && (
-    <span
-        className="
-            absolute
-            right-1.5
-            top-1.5
-            z-10
-            flex
-            h-4
-            w-4
-            items-center
-            justify-center
-            rounded-full
-            bg-primary
-            text-[8px]
-            font-bold
-            text-primary-foreground
-            shadow-sm
-            sm:right-2.5
-            sm:top-2.5
-            sm:h-5
-            sm:w-5
-            sm:text-[10px]
-        "
-        title="Basic tool — free on every plan"
-        aria-label="Basic tool, free on every plan"
-    >
-        B
-    </span>
-)}
 
             {/* Icon */}
             <div
@@ -137,36 +102,54 @@ export default function ToolCard({
                 </p>
             </div>
 
-            {/* Badge. Sits under the description on a phone, where a corner chip
-                would cover the title in a 110px-wide card; the original absolute
-                top-right corner from sm. */}
-            {(comingSoon || badge) && (
-                <span
-                    className={`
-                        hidden
-                        mt-2
-                        shrink-0
-                        rounded-full
-                        bg-primary/10
-                        px-2
-                        py-0.5
-                        text-[9px]
-                        font-semibold
-                        uppercase
-                        tracking-wide
-                        text-primary
-                        lg:inline-flex
-                        lg:absolute
-                        ${tier === "basic" ? "lg:right-9" : "lg:right-4"}
-                        lg:top-4
-                        lg:mt-0
-                        lg:px-2.5
-                        lg:py-1
-                        lg:text-[10px]
-                    `}
-                >
-                    {comingSoon ? badgeLabel("Soon") : badgeLabel(badge!)}
-                </span>
+            {/* The corner chips. Both live in one row so a tool that is both
+                advertised and advanced — the four AI ones — shows them side by
+                side rather than stacking one on top of the other.
+
+                Hidden below lg for the same reason the badge always was: at
+                roughly 110px wide a corner chip covers the title. */}
+            {(comingSoon || badge || advanced) && (
+                <div className="hidden lg:absolute lg:right-4 lg:top-4 lg:flex lg:items-center lg:gap-1.5">
+                    {(comingSoon || badge) && (
+                        <span
+                            className="
+                                inline-flex
+                                shrink-0
+                                rounded-full
+                                bg-primary/10
+                                px-2.5
+                                py-1
+                                text-[10px]
+                                font-semibold
+                                uppercase
+                                tracking-wide
+                                text-primary
+                            "
+                        >
+                            {comingSoon ? badgeLabel("Soon") : badgeLabel(badge!)}
+                        </span>
+                    )}
+
+                    {advanced && (
+                        <span
+                            className="
+                                inline-flex
+                                shrink-0
+                                rounded-full
+                                bg-primary/10
+                                px-2.5
+                                py-1
+                                text-[10px]
+                                font-semibold
+                                uppercase
+                                tracking-wide
+                                text-primary
+                            "
+                        >
+                            {badgeLabel("Advanced")}
+                        </span>
+                    )}
+                </div>
             )}
 
             {/* Hover Glow */}

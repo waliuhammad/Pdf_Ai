@@ -268,4 +268,8 @@ export const BADGE_TEXT: Record<string, Partial<Record<Locale, string>>> = {
         en: "Soon", es: "Pronto", fr: "Bientôt", de: "Bald",
         pt: "Em breve", ar: "قريبًا", ur: "جلد", zh: "即将推出",
     },
+    Advanced: {
+        en: "Advanced", es: "Avanzado", fr: "Avancé", de: "Erweitert",
+        pt: "Avançado", ar: "متقدم", ur: "ایڈوانسڈ", zh: "高级",
+    },
 };

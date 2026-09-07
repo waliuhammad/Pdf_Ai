@@ -28,12 +28,36 @@ export interface Tool {
     category: string;
     badge?: string;
     /** Small corner tag for tools open on every plan, incl. Free, with no per-tool cap. */
-    tier?: "basic";
     /** No page exists yet — rendered as a non-clickable card instead of a dead link. */
     comingSoon?: boolean;
+    /** Draws on the advanced allowance rather than the everyday one. Derived below. */
+    advanced?: boolean;
 }
 
-export const tools: Tool[] = [
+/**
+ * The tools that spend from the everyday allowance. Everything else spends from
+ * the advanced one, which is the line the pricing page draws — Free gets no
+ * advanced operations at all.
+ *
+ * Kept as the short list because it is the one that stays still: these six are
+ * the plain page-shuffling tools, and anything added later is far likelier to
+ * be a conversion or an AI feature than another of these.
+ *
+ * The routes are the authority. /api/<tool> declares its own category, and the
+ * three browser-side tools declare theirs when they claim an operation; this
+ * mirrors those declarations so a card cannot advertise one tier and be
+ * metered as another.
+ */
+const EVERYDAY_TOOLS = new Set([
+    "/merge-pdf",
+    "/split-pdf",
+    "/compress-pdf",
+    "/rotate-pdf",
+    "/pdf-to-image",
+    "/image-to-pdf",
+]);
+
+const allTools: Tool[] = [
     {
         name: "Merge PDF",
         description: "Combine multiple PDF files into one.",
@@ -41,7 +65,6 @@ export const tools: Tool[] = [
         href: "/merge-pdf",
         category: "Organize",
         badge: "Popular",
-        tier: "basic",
     },
     {
         name: "Split PDF",
@@ -49,7 +72,6 @@ export const tools: Tool[] = [
         icon: Scissors,
         href: "/split-pdf",
         category: "Organize",
-        tier: "basic",
     },
     {
         name: "Compress PDF",
@@ -57,7 +79,6 @@ export const tools: Tool[] = [
         icon: Minimize2,
         href: "/compress-pdf",
         category: "Edit",
-        tier: "basic",
     },
     {
         name: "Rotate PDF",
@@ -65,7 +86,6 @@ export const tools: Tool[] = [
         icon: RotateCw,
         href: "/rotate-pdf",
         category: "Organize",
-        tier: "basic",
     },
     {
         name: "PDF to Word",
@@ -88,7 +108,6 @@ export const tools: Tool[] = [
         icon: FileImage,
         href: "/pdf-to-image",
         category: "Convert",
-        tier: "basic",
     },
     {
         name: "Image to PDF",
@@ -96,7 +115,6 @@ export const tools: Tool[] = [
         icon: ImagePlus,
         href: "/image-to-pdf",
         category: "Convert",
-        tier: "basic",
     },
     {
         name: "PDF to Excel",
@@ -194,6 +212,12 @@ export const tools: Tool[] = [
         badge: "New",
     },
 ];
+
+/** The list every grid renders, each tool carrying whether it is advanced. */
+export const tools: Tool[] = allTools.map((tool) => ({
+    ...tool,
+    advanced: !EVERYDAY_TOOLS.has(tool.href),
+}));
 /**
  * lib/tool-paths.ts holds the same routes without the icons, so the navbar can
  * ask "is this a tool page" without pulling twenty icon components into every
