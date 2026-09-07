@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Mail, Lock, User, Eye, EyeOff, FileText, Phone } from "lucide-react";
+import { Mail, Lock, User, Eye, EyeOff, Phone } from "lucide-react";
+import { Logo } from "@/components/brand/logo";
 import { registerWithEmail, signInWithSocial, type SocialProviderId } from "@/lib/firebase/auth";
 import { DEFAULT_DIAL_CODE } from "@/lib/countryCodes";
 import { SocialAuth } from "@/components/auth/social-auth";
@@ -61,8 +62,8 @@ export default function RegisterPage() {
         <main className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-4 sm:py-6 bg-[var(--background-secondary)]">
             <div className="w-full max-w-md p-4 sm:p-5 rounded-2xl bg-card border border-card shadow-sm">
                 <Link href="/" className="flex items-center gap-2 text-xl font-bold text-fg mb-3 sm:mb-4">
-                    <FileText className="text-[var(--primary)]" size={22} />
-                    PDF<span className="text-[var(--primary)]">AI</span>
+                    <Logo size={26} className="shrink-0" />
+                    PDF <span className="text-[var(--primary)]">AI</span> Assistant
                 </Link>
 
                 <h1 className="text-xl sm:text-2xl font-bold text-fg mb-1">Create your account</h1>

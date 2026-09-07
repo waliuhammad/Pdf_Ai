@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { FileText, AlertCircle, Loader2 } from "lucide-react";
+import { AlertCircle, Loader2 } from "lucide-react";
+import { Logo } from "@/components/brand/logo";
 
 const OTP_LENGTH = 6;
 const RESEND_COOLDOWN_SECONDS = 30;
@@ -89,8 +90,8 @@ export default function VerifyOtpPage() {
         <main className="min-h-screen flex items-center justify-center px-6 bg-[var(--background-secondary)]">
             <div className="w-full max-w-md p-8 rounded-2xl bg-card border border-card shadow-sm text-center">
                 <Link href="/" className="flex items-center justify-center gap-2 text-xl font-bold text-fg mb-8">
-                    <FileText className="text-[var(--primary)]" size={22} />
-                    PDF<span className="text-[var(--primary)]">AI</span>
+                    <Logo size={26} className="shrink-0" />
+                    PDF <span className="text-[var(--primary)]">AI</span> Assistant
                 </Link>
 
                 <h1 className="text-2xl font-bold text-fg mb-2">Verify your email</h1>

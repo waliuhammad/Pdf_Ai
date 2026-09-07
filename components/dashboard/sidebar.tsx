@@ -67,7 +67,7 @@ export function Sidebar() {
             <div className={`flex items-center justify-between px-2 mb-3 ${collapsed && !isMobile ? "px-0 justify-center" : ""}`}>
                 {(!collapsed || isMobile) && (
                     <Link href="/" className="text-xl font-bold text-fg truncate" onClick={() => isMobile && setOpen(false)}>
-                        PDF<span className="text-fg">AI</span>
+                        PDF <span className="text-[var(--primary)]">AI</span> Assistant
                     </Link>
                 )}
                 {!isMobile && (
@@ -134,7 +134,7 @@ export function Sidebar() {
         <>
             <div className="md:hidden sticky top-0 z-40 flex items-center justify-between px-4 py-3 border-b border-card bg-card">
                 <Link href="/" className="text-xl font-bold text-fg">
-                    PDF<span>AI</span>
+                    PDF <span className="text-[var(--primary)]">AI</span> Assistant
                 </Link>
                 <button onClick={() => setOpen(true)} className="text-fg p-1" aria-label="Open menu">
                     <Menu size={22} />

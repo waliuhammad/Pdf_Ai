@@ -371,7 +371,7 @@ export default function PrivacyPage() {
             {/* 12. Advertising */}
             <Section heading="Advertising">
                 <p className="mb-4 text-gray-800 dark:text-purple-100">
-                    PDFAI may show advertising on some pages. We use Google
+                    PDF AI Assistant may show advertising on some pages. We use Google
                     AdSense to serve those ads. We do not use the contents of
                     your documents for advertising, and your files are never
                     shared with advertisers.

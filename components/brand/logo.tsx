@@ -30,7 +30,7 @@ export function Logo({
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             role="img"
-            aria-label="PDF AI"
+            aria-label="PDF AI Assistant"
             className={className}
         >
             <defs>
