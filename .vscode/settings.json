@@ -1,0 +1,14 @@
+{
+  // Use the TypeScript in node_modules, not the one bundled with the editor.
+  //
+  // Without this the editor type-checks with whatever version it happens to
+  // ship, which is not the version `npx tsc --noEmit` and the build use. The
+  // two then disagree, and the editor is the one you look at: imports that
+  // resolve perfectly well on the command line get underlined as errors, which
+  // is exactly what happened to `import AdContainer from "./AdContainer"`.
+  //
+  // Pinned to the workspace copy so the squiggles and CI are answering the same
+  // question with the same compiler.
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
+}
