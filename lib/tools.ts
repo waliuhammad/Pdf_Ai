@@ -64,7 +64,6 @@ const allTools: Tool[] = [
         icon: FileStack,
         href: "/merge-pdf",
         category: "Organize",
-        badge: "Popular",
     },
     {
         name: "Split PDF",
