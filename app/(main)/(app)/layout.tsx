@@ -1,5 +1,6 @@
 import { AppChrome } from "@/components/app-chrome";
 import { RatingPrompt } from "@/components/rating-prompt";
+import ToolAbout from "@/components/tools/tool-about";
 
 /**
  * Chrome for the signed-in app area. The PDF tools live here and stay usable
@@ -19,7 +20,10 @@ export default function AppLayout({
 }) {
     return (
         <>
-            <AppChrome>{children}</AppChrome>
+            <AppChrome>
+                {children}
+                <ToolAbout />
+            </AppChrome>
             <RatingPrompt />
         </>
     );
