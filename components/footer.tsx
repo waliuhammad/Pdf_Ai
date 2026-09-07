@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FileText } from "lucide-react";
+import { Logo } from "@/components/brand/logo";
 import {
     FaLinkedin,
     FaGithub,
@@ -102,19 +102,7 @@ export default function Footer() {
                         "
                     >
 
-                        <div
-                            className="
-                                w-10
-                                h-10
-                                rounded-xl
-                                bg-primary
-                                flex
-                                items-center
-                                justify-center
-                            "
-                        >
-                            <FileText className="text-primary-foreground" />
-                        </div>
+                        <Logo size={40} className="w-10 h-10 shrink-0" />
 
 
                         <h2 className="

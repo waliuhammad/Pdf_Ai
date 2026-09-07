@@ -1,20 +1,47 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="PDF_AI">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="PDF AI">
   <!--
-    The same mark the navbar draws: the brand purple in a rounded square with a
-    document glyph on it. Replaces the framework's default favicon, which was
-    still what the tab showed.
+    The same mark components/brand/logo.tsx draws, as a standalone file because
+    a favicon cannot be a React component.
 
-    SVG rather than a bitmap so it stays sharp on every screen, and the strokes
-    are deliberately heavy — at 16px a hairline outline turns to mush.
+    One deliberate difference from the component: the mark is scaled up slightly
+    to fill the square, since a tab icon has no surrounding layout to give it
+    room.
+
+    Keep the two in step: if the artwork changes there, change it here.
   -->
-  <rect width="64" height="64" rx="15" fill="#6D5DE0"/>
-  <g transform="translate(13 13) scale(1.583)"
-     fill="none" stroke="#ffffff" stroke-width="2.1"
-     stroke-linecap="round" stroke-linejoin="round">
-    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/>
-    <path d="M14 2v4a2 2 0 0 0 2 2h4"/>
-    <path d="M16 13H8"/>
-    <path d="M16 17H8"/>
-    <path d="M10 9H8"/>
+  <defs>
+    <mask id="gap">
+      <rect width="64" height="64" fill="#fff"/>
+      <path d="M20 8h14.2L48 21.4V44a6 6 0 0 1-6 6H20a6 6 0 0 1-6-6V14a6 6 0 0 1 6-6Z"
+            fill="#000" stroke="#000" stroke-width="5" stroke-linejoin="round"/>
+    </mask>
+    <linearGradient id="doc" x1="18" y1="12" x2="48" y2="46" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#4F46E5"/>
+    </linearGradient>
+    <linearGradient id="ribbon" x1="6" y1="46" x2="58" y2="34" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1D9BF6"/>
+      <stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="spark" x1="49" y1="17" x2="59" y2="29" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#6D28D9"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(32 32) scale(1.12) translate(-32 -32)">
+    <ellipse cx="31" cy="37" rx="27" ry="11.5" transform="rotate(-13 31 37)"
+             stroke="url(#ribbon)" stroke-width="7" mask="url(#gap)"/>
+
+    <path d="M20 8h14.2L48 21.4V44a6 6 0 0 1-6 6H20a6 6 0 0 1-6-6V14a6 6 0 0 1 6-6Z"
+          fill="url(#doc)"/>
+    <path d="M34.2 8 48 21.4H38.2a4 4 0 0 1-4-4V8Z" fill="#93C5FD"/>
+
+    <rect x="21" y="24" width="20" height="3.6" rx="1.8" fill="#EEF2FF"/>
+    <rect x="21" y="31" width="20" height="3.6" rx="1.8" fill="#EEF2FF"/>
+    <rect x="21" y="38" width="13" height="3.6" rx="1.8" fill="#EEF2FF"/>
+
+    <path d="M54 15c.9 4.4 2.6 6.1 7 7-4.4.9-6.1 2.6-7 7-.9-4.4-2.6-6.1-7-7 4.4-.9 6.1-2.6 7-7Z"
+          fill="url(#spark)"/>
   </g>
 </svg>
