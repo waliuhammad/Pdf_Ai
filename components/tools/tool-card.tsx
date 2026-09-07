@@ -102,13 +102,18 @@ export default function ToolCard({
                 </p>
             </div>
 
-            {/* The corner chips. Both live in one row so a tool that is both
-                advertised and advanced — the four AI ones — shows them side by
-                side rather than stacking one on top of the other.
+            {/* The corner chips, in one row so a tool carrying both — Merge is
+                Popular and Basic — shows them side by side rather than stacked.
+
+                Only the basic tools are marked. Labelling the other fifteen
+                "Advanced" put a chip on almost every card, which says nothing
+                by being everywhere; the six that are included on every plan are
+                the ones worth pointing at.
 
                 Hidden below lg for the same reason the badge always was: at
                 roughly 110px wide a corner chip covers the title. */}
-            <div className="hidden lg:absolute lg:right-4 lg:top-4 lg:flex lg:items-center lg:gap-1.5">
+            {(comingSoon || badge || !advanced) && (
+                <div className="hidden lg:absolute lg:right-4 lg:top-4 lg:flex lg:items-center lg:gap-1.5">
                     {(comingSoon || badge) && (
                         <span
                             className="
@@ -129,24 +134,27 @@ export default function ToolCard({
                         </span>
                     )}
 
-                    <span
-                        className="
-                            inline-flex
-                            shrink-0
-                            rounded-full
-                            bg-primary/10
-                            px-2.5
-                            py-1
-                            text-[10px]
-                            font-semibold
-                            uppercase
-                            tracking-wide
-                            text-primary
-                        "
-                    >
-                        {badgeLabel(advanced ? "Advanced" : "Basic")}
-                    </span>
-            </div>
+                    {!advanced && (
+                        <span
+                            className="
+                                inline-flex
+                                shrink-0
+                                rounded-full
+                                bg-primary/10
+                                px-2.5
+                                py-1
+                                text-[10px]
+                                font-semibold
+                                uppercase
+                                tracking-wide
+                                text-primary
+                            "
+                        >
+                            {badgeLabel("Basic")}
+                        </span>
+                    )}
+                </div>
+            )}
 
             {/* Hover Glow */}
             <div
