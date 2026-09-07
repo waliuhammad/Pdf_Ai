@@ -68,36 +68,39 @@ export default function ToolCard({
             {/* "B" tag: free-to-use basic tools, no per-tool cap on any plan.
                 Shown at every width, unlike the badge pill below which only
                 appears from lg — this is a plan-relevant fact, not decoration. */}
-            {tier === "basic" && (
-                <span
-                    className="
-                        absolute
-                        right-1.5
-                        top-1.5
-                        z-10
-                        flex
-                        h-4
-                        w-4
-                        items-center
-                        justify-center
-                        rounded-full
-                        bg-emerald-500
-                        text-[8px]
-                        font-bold
-                        text-white
-                        shadow-sm
-                        sm:right-2.5
-                        sm:top-2.5
-                        sm:h-5
-                        sm:w-5
-                        sm:text-[10px]
-                    "
-                    title="Basic tool — free on every plan"
-                    aria-label="Basic tool, free on every plan"
-                >
-                    B
-                </span>
-            )}
+           {/* "B" tag: free-to-use basic tools, no per-tool cap on any plan.
+    Shown at every width, unlike the badge pill below which only
+    appears from lg — this is a plan-relevant fact, not decoration. */}
+{tier === "basic" && (
+    <span
+        className="
+            absolute
+            right-1.5
+            top-1.5
+            z-10
+            flex
+            h-4
+            w-4
+            items-center
+            justify-center
+            rounded-full
+            bg-primary
+            text-[8px]
+            font-bold
+            text-primary-foreground
+            shadow-sm
+            sm:right-2.5
+            sm:top-2.5
+            sm:h-5
+            sm:w-5
+            sm:text-[10px]
+        "
+        title="Basic tool — free on every plan"
+        aria-label="Basic tool, free on every plan"
+    >
+        B
+    </span>
+)}
 
             {/* Icon */}
             <div
