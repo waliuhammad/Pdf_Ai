@@ -185,7 +185,7 @@ const allTools: Tool[] = [
         icon: ScanText,
         href: "/ocr-pdf", // matches your folder name
         category: "AI Tools",
-        badge: "New",
+        badge: "AI",
     },
     {
         name: "AI Summary",
@@ -209,7 +209,7 @@ const allTools: Tool[] = [
         icon: FileSearch,
         href: "/grammar", // Updated to just "grammar"
         category: "AI Tools",
-        badge: "New",
+        badge: "AI",
     },
 ];
 
