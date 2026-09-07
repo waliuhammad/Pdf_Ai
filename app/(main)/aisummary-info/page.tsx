@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { ContentPage, Section } from "@/components/marketing/content-page";
+import InArticleAd from "@/components/ads/InArticleAd";
 
+// ...inside the returned <ContentPage>, between sections:
+<InArticleAd slot="1234567890" />
 export const metadata: Metadata = {
     title: "AI Summary",
     description: "Generate concise summaries from lengthy reports, books and documents.",
