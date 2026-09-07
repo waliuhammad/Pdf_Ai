@@ -326,7 +326,7 @@ export default function SettingsPage() {
                             {!canUsePassword ? (
                                 <p className="text-sm text-muted">
                                     You signed in with a social provider, so your password is managed there rather
-                                    than by PDFAI.
+                                    than by PDF AI Assistant.
                                 </p>
                             ) : (
                                 <>

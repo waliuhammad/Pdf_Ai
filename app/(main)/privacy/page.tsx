@@ -1,11 +1,10 @@
-
 import type { Metadata } from "next";
 import { ContentPage, Section } from "@/components/marketing/content-page";
 
 export const metadata: Metadata = {
     title: "Privacy Policy",
     description:
-        "Learn how PDFAI collects, uses, protects, and processes your personal information and documents.",
+        "Learn how PDF AI Assistant collects, uses, protects, and processes your personal information and documents.",
 };
 
 export default function PrivacyPage() {
@@ -21,7 +20,7 @@ export default function PrivacyPage() {
                     Our Privacy Commitment
                 </h3>
                 <p className="text-sm leading-relaxed text-gray-700 dark:text-purple-200">
-                    At PDFAI, we design our service with privacy and responsible
+                    At PDF AI Assistant, we design our service with privacy and responsible
                     data handling in mind. We do not sell your personal
                     information or use the contents of your documents for
                     advertising. We also do not use your private document
@@ -29,7 +28,7 @@ export default function PrivacyPage() {
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-gray-700 dark:text-purple-200">
                     You retain ownership of the documents and other content you
-                    submit to PDFAI. We process that content only as reasonably
+                    submit to PDF AI Assistant. We process that content only as reasonably
                     necessary to provide the features you request, maintain and
                     secure the service, comply with applicable law, and perform
                     the technical operations described in this Privacy Policy.
@@ -41,7 +40,7 @@ export default function PrivacyPage() {
                 <p className="mb-4 text-gray-800 dark:text-purple-100">
                     We collect information that is reasonably necessary to
                     provide the service, manage accounts and subscriptions,
-                    maintain security, and operate PDFAI.
+                    maintain security, and operate PDF AI Assistant.
                 </p>
 
                 <ul className="list-disc space-y-2 pl-6 text-gray-800 dark:text-purple-100">
@@ -62,7 +61,7 @@ export default function PrivacyPage() {
                         relating to your plan, subscription status,
                         transactions, and payment history. Payment-card
                         information is handled by our payment provider and is
-                        not stored by PDFAI as a full card number.
+                        not stored by PDF AI Assistant as a full card number.
                     </li>
 
                     <li>
@@ -128,7 +127,7 @@ export default function PrivacyPage() {
             {/* 4. AI Features */}
             <Section heading="AI Features & Third-Party Processing">
                 <p className="mb-4 text-gray-800 dark:text-purple-100">
-                    Some PDFAI features, including summarisation, translation,
+                    Some PDF AI Assistant features, including summarisation, translation,
                     grammar checking and OCR, may use
                     third-party artificial-intelligence services. Our current
                     AI provider includes Google&apos;s Gemini API.
@@ -180,7 +179,7 @@ export default function PrivacyPage() {
                     We do not sell your personal information. We may share
                     information with service providers that process
                     information on our behalf or provide infrastructure
-                    necessary to operate PDFAI. We seek to limit the
+                    necessary to operate PDF AI Assistant. We seek to limit the
                     information shared to what is reasonably necessary for the
                     relevant service.
                 </p>
@@ -217,7 +216,7 @@ export default function PrivacyPage() {
                     We may also disclose information where required by law,
                     legal process, or a valid governmental request, or where
                     reasonably necessary to protect the rights, safety,
-                    security, property, or integrity of PDFAI, our users, or
+                    security, property, or integrity of PDF AI Assistant, our users, or
                     others.
                 </p>
             </Section>
@@ -225,7 +224,7 @@ export default function PrivacyPage() {
             {/* 6. International Processing */}
             <Section heading="International Data Processing">
                 <p className="text-gray-800 dark:text-purple-100">
-                    PDFAI and its service providers may process information in
+                    PDF AI Assistant and its service providers may process information in
                     countries other than the country where you live. Where
                     applicable privacy laws require safeguards for
                     international transfers, we will use appropriate
@@ -343,7 +342,7 @@ export default function PrivacyPage() {
             {/* 10. Children's Privacy */}
             <Section heading="Children's Privacy">
                 <p className="text-gray-800 dark:text-purple-100">
-                    PDFAI is not intended to knowingly collect personal
+                    PDF AI Assistant is not intended to knowingly collect personal
                     information from children below the minimum age permitted
                     under applicable law. If you believe a child has provided
                     personal information to us in circumstances where
@@ -355,7 +354,7 @@ export default function PrivacyPage() {
             {/* 11. Cookies */}
             <Section heading="Cookies & Similar Technologies">
                 <p className="mb-4 text-gray-800 dark:text-purple-100">
-                    PDFAI may use cookies, local storage, or similar
+                    PDF AI Assistant may use cookies, local storage, or similar
                     technologies that are necessary to authenticate users,
                     maintain sessions, remember settings, provide security,
                     and operate the service.
@@ -391,12 +390,12 @@ export default function PrivacyPage() {
                 <p className="mb-4 text-gray-800 dark:text-purple-100">
                     If you have questions about privacy, document processing,
                     data handling, or wish to submit a privacy request, please
-                    contact us through the PDFAI Contact page or the privacy
-                    contact address provided by PDFAI.
+                    contact us through the PDF AI Assistant Contact page or the privacy
+                    contact address provided by PDF AI Assistant.
                 </p>
 
                 <div className="rounded-md border border-gray-200 p-4 text-gray-800 dark:border-purple-900/40 dark:bg-purple-950/10 dark:text-purple-100">
-                    <p className="font-semibold">PDFAI — Privacy</p>
+                    <p className="font-semibold">PDF AI Assistant — Privacy</p>
                     <p className="mt-1 text-sm text-gray-600 dark:text-purple-300">
                         Email: support@pdfai.com
                     </p>

@@ -4,7 +4,7 @@ import { ContactForm } from "@/components/marketing/contact-form";
 
 export const metadata: Metadata = {
     title: "Contact",
-    description: "Get in touch with the PDFAI team.",
+    description: "Get in touch with the PDF AI Assistant team.",
 };
 
 export default function ContactPage() {

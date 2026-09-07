@@ -1,6 +1,6 @@
-# Deploying PDFAI
+# Deploying PDF AI Assistant
 
-PDFAI is a full application — a Next.js website, an AI service, and a
+PDF AI Assistant is a full application — a Next.js website, an AI service, and a
 vector database — so it must run on a **VPS** (virtual private server).
 It cannot run on shared/regular web hosting.
 
@@ -104,4 +104,3 @@ Chat with PDF.
 - **See what any container is doing:**
   `docker compose logs web --tail 50` (or `ai-service`, `chroma`,
   `caddy`).
-  

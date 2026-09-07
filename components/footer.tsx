@@ -122,7 +122,7 @@ export default function Footer() {
                             font-bold
                             text-fg
                         ">
-                            PDF AI
+                            PDF AI Assistant
                         </h2>
 
                     </div>
@@ -267,7 +267,7 @@ export default function Footer() {
                     text-muted
                 "
             >
-                © {new Date().getFullYear()} PDF AI. All rights reserved.
+                © {new Date().getFullYear()} PDF AI Assistant. All rights reserved.
             </div>
 
 

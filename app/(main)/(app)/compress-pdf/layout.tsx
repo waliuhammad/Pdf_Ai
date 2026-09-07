@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 // The page itself is a client component and so cannot export metadata.
 export const metadata: Metadata = {
     title: "Compress PDF",
-    description: "Reduce PDF file size quickly. Part of PDFAI, usable without an account.",
+    description: "Reduce PDF file size quickly. Part of PDF AI Assistant, usable without an account.",
     alternates: { canonical: "/compress-pdf" },
 };
 

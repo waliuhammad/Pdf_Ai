@@ -5,7 +5,7 @@ import { ContentPage } from "@/components/marketing/content-page";
 
 export const metadata: Metadata = {
     title: "Blog",
-    description: "Product updates and writing from the PDFAI team.",
+    description: "Product updates and writing from the PDF AI Assistant team.",
 };
 
 /** No posts exist yet, so this renders an empty state rather than sample articles. */

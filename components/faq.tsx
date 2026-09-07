@@ -12,9 +12,9 @@ interface FAQItem {
 const faqs: FAQItem[] = [
     {
         category: "General",
-        question: "What is PDF AI?",
+        question: "What is PDF AI Assistant?",
         answer:
-            "PDF AI is an all-in-one platform for converting, editing and analysing PDF documents.",
+            "PDF AI Assistant is an all-in-one platform for converting, editing and analysing PDF documents.",
     },
     {
         category: "AI",
@@ -30,7 +30,7 @@ const faqs: FAQItem[] = [
     },
     {
         category: "Pricing",
-        question: "Can I use PDF AI for free?",
+        question: "Can I use PDF AI Assistant for free?",
         answer:
             "Yes. Our Free plan includes essential PDF tools, while Pro and Business unlock premium AI features.",
     },

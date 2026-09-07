@@ -331,7 +331,7 @@ export function CTA() {
                         >
 
                             <p className="text-xs text-muted">
-                                Start using PDF AI today.
+                                Start using PDF AI Assistant today.
                             </p>
 
                             <p className="

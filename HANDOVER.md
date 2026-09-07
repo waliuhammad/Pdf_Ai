@@ -1,4 +1,4 @@
-# PDFAI — Handover Notes
+# PDF AI Assistant — Handover Notes
 
 ## What this application is
 A full web application in three services (website, AI service, vector

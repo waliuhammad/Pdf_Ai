@@ -22,12 +22,12 @@ const productSecurityFeatures = [
   {
     icon: Cloud,
     title: "Trusted infrastructure",
-    description: "PDFAI runs on established cloud platforms. Accounts and saved data live in Google Firebase, which operates on Google Cloud's certified, globally audited infrastructure.",
+    description: "PDF AI Assistant runs on established cloud platforms. Accounts and saved data live in Google Firebase, which operates on Google Cloud's certified, globally audited infrastructure.",
   },
   {
     icon: ShieldCheck,
     title: "Encrypted connections",
-    description: "Every connection to PDFAI — your browser, our servers, and the AI services we call — travels over HTTPS/TLS, so documents and credentials can't be read in transit.",
+    description: "Every connection to PDF AI Assistant — your browser, our servers, and the AI services we call — travels over HTTPS/TLS, so documents and credentials can't be read in transit.",
   },
   {
     icon: FolderLock,
@@ -111,7 +111,7 @@ export default function SecurityPage() {
                 <div>
                   <h4 className="font-semibold text-slate-900 dark:text-white">In transit</h4>
                   <p className="mt-1 text-slate-600 dark:text-purple-200/80">
-                    All traffic between your browser and PDFAI, and between PDFAI and the services
+                    All traffic between your browser and PDF AI Assistant, and between PDF AI Assistant and the services
                     it uses, is encrypted with <strong>HTTPS/TLS</strong>. We never accept
                     unencrypted connections.
                   </p>
@@ -125,7 +125,7 @@ export default function SecurityPage() {
                   <p className="mt-1 text-slate-600 dark:text-purple-200/80">
                     Account data and saved documents are stored in Google Firebase, where
                     Google encrypts all data at rest by default using <strong>AES-256</strong>.
-                    Payment card details are never stored by PDFAI at all — billing is handled
+                    Payment card details are never stored by PDF AI Assistant at all — billing is handled
                     entirely by our payment provider.
                   </p>
                 </div>

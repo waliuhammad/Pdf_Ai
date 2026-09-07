@@ -13,12 +13,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   // Each tool sets only its own title; this frames it.
   title: {
-    default: "PDF_AI — Every PDF tool you need, in one place",
-    template: "%s | PDF_AI",
+    default: "PDF AI Assistant — Every PDF tool you need, in one place",
+    template: "%s | PDF AI Assistant",
   },
   description: "Every PDF tool you need, in one place.",
   openGraph: {
-    siteName: "PDF_AI",
+    siteName: "PDF AI Assistant",
     type: "website",
     url: siteUrl,
   },

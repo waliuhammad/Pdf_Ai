@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 // The page itself is a client component and so cannot export metadata.
 export const metadata: Metadata = {
     title: "Rotate PDF",
-    description: "Rotate pages to the correct orientation. Part of PDFAI, usable without an account.",
+    description: "Rotate pages to the correct orientation. Part of PDF AI Assistant, usable without an account.",
     alternates: { canonical: "/rotate-pdf" },
 };
 

@@ -31,7 +31,7 @@ export default function GlobalError({
                 }}
             >
                 <h1 style={{ fontSize: "1.5rem", fontWeight: 700, margin: 0 }}>
-                    PDFAI could not load
+                    PDF AI Assistant could not load
                 </h1>
                 <p style={{ margin: 0, color: "#64748b", fontSize: "0.875rem" }}>
                     Something failed before the page could start.

@@ -57,7 +57,7 @@ export const POST = metered(async (req: NextRequest) => {
     // Step 2: Generate PowerPoint presentation with min 2 and max 5 slides per PDF page
     const pptx = new pptxgen();
 
-    pptx.author = "PDF AI Suite";
+    pptx.author = "PDF AI Assistant";
     pptx.company = "Document Conversion Suite";
     pptx.title = file.name.replace(/\.[^/.]+$/, "");
 

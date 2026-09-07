@@ -94,7 +94,7 @@ export default function PdfToPpt(): JSX.Element {
     <div className="fixed inset-0 overflow-y-auto bg-white dark:bg-[#1A1B24] text-fg flex flex-col antialiased selection:bg-blue-500 selection:text-white">
       {/* Top nav bar */}
       <header className="w-full flex items-center justify-between px-4 sm:px-6 py-4 border-b border-card bg-white dark:bg-[#1A1B24]">
-        <span className="text-base sm:text-lg font-bold tracking-tight text-fg">PDFAI</span>
+        <span className="text-base sm:text-lg font-bold tracking-tight text-fg">PDF AI Assistant</span>
         <button
           type="button"
           aria-label="Open menu"

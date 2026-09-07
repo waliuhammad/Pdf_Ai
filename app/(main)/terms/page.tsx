@@ -1,11 +1,10 @@
-
 import { ContentPage, Section } from "@/components/marketing/content-page";
 
 /**
- * Terms of Service for PDFAI.
+ * Terms of Service for PDF AI Assistant.
  *
  * Keep these terms consistent with the features, billing flow,
- * privacy practices, and third-party services actually used by PDFAI.
+ * privacy practices, and third-party services actually used by PDF AI Assistant.
  */
 
 const clauses = [
@@ -14,7 +13,7 @@ const clauses = [
         items: [
             [
                 "1.1",
-                "By accessing or using PDFAI, you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to these Terms, you must not access or use the service.",
+                "By accessing or using PDF AI Assistant, you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to these Terms, you must not access or use the service.",
             ],
             [
                 "1.2",
@@ -35,7 +34,7 @@ const clauses = [
         items: [
             [
                 "2.1",
-                "PDFAI provides online tools for working with PDF documents and related content, including document conversion, merging, splitting, compression, signing, OCR, protection, unlocking, watermarking, and other document-processing features. PDFAI may also provide AI-assisted features such as summarization, translation and grammar checking.",
+                "PDF AI Assistant provides online tools for working with PDF documents and related content, including document conversion, merging, splitting, compression, signing, OCR, protection, unlocking, watermarking, and other document-processing features. PDF AI Assistant may also provide AI-assisted features such as summarization, translation and grammar checking.",
             ],
             [
                 "2.2",
@@ -43,7 +42,7 @@ const clauses = [
             ],
             [
                 "2.3",
-                "You are responsible for reviewing and independently verifying AI-generated or automatically processed output before relying on it. PDFAI does not provide legal, medical, financial, tax, professional, or other regulated advice through its AI features.",
+                "You are responsible for reviewing and independently verifying AI-generated or automatically processed output before relying on it. PDF AI Assistant does not provide legal, medical, financial, tax, professional, or other regulated advice through its AI features.",
             ],
             [
                 "2.4",
@@ -60,7 +59,7 @@ const clauses = [
         items: [
             [
                 "3.1",
-                "PDFAI may rely on third-party providers for services such as payment processing, cloud infrastructure, artificial-intelligence processing, authentication, storage, analytics, or other technical functions.",
+                "PDF AI Assistant may rely on third-party providers for services such as payment processing, cloud infrastructure, artificial-intelligence processing, authentication, storage, analytics, or other technical functions.",
             ],
             [
                 "3.2",
@@ -68,7 +67,7 @@ const clauses = [
             ],
             [
                 "3.3",
-                "Third-party services may change, become unavailable, or impose technical or usage limitations. Such events may affect the availability or functionality of corresponding PDFAI features.",
+                "Third-party services may change, become unavailable, or impose technical or usage limitations. Such events may affect the availability or functionality of corresponding PDF AI Assistant features.",
             ],
         ],
     },
@@ -77,11 +76,11 @@ const clauses = [
         items: [
             [
                 "4.1",
-                "You must use PDFAI only for lawful purposes and in compliance with applicable laws and regulations. You may not upload, process, generate, store, or share content that is illegal, infringes third-party rights, contains malicious software, or that you do not have the legal right or necessary permissions to process.",
+                "You must use PDF AI Assistant only for lawful purposes and in compliance with applicable laws and regulations. You may not upload, process, generate, store, or share content that is illegal, infringes third-party rights, contains malicious software, or that you do not have the legal right or necessary permissions to process.",
             ],
             [
                 "4.2",
-                "You may not use PDFAI to facilitate fraud, identity theft, unlawful surveillance, harassment, exploitation, distribution of malware, or other unlawful activity.",
+                "You may not use PDF AI Assistant to facilitate fraud, identity theft, unlawful surveillance, harassment, exploitation, distribution of malware, or other unlawful activity.",
             ],
             [
                 "4.3",
@@ -102,15 +101,15 @@ const clauses = [
         items: [
             [
                 "5.1",
-                "You retain ownership of the documents, files, text, and other content that you upload or submit to PDFAI. We do not claim ownership of your content merely because you use our service to process it.",
+                "You retain ownership of the documents, files, text, and other content that you upload or submit to PDF AI Assistant. We do not claim ownership of your content merely because you use our service to process it.",
             ],
             [
                 "5.2",
-                "You represent and warrant that you have all rights, permissions, consents, and lawful authority necessary for us to receive, store, process, transmit, and otherwise handle the content you submit to PDFAI for the purposes described in these Terms and our Privacy Policy.",
+                "You represent and warrant that you have all rights, permissions, consents, and lawful authority necessary for us to receive, store, process, transmit, and otherwise handle the content you submit to PDF AI Assistant for the purposes described in these Terms and our Privacy Policy.",
             ],
             [
                 "5.3",
-                "You grant PDFAI a limited, non-exclusive licence to host, store, reproduce, transmit, modify where technically necessary, and process your content only as reasonably necessary to provide, maintain, secure, and improve the service you request. This may include processing document content through third-party service providers used to deliver requested features.",
+                "You grant PDF AI Assistant a limited, non-exclusive licence to host, store, reproduce, transmit, modify where technically necessary, and process your content only as reasonably necessary to provide, maintain, secure, and improve the service you request. This may include processing document content through third-party service providers used to deliver requested features.",
             ],
             [
                 "5.4",
@@ -122,7 +121,7 @@ const clauses = [
             ],
             [
                 "5.6",
-                "You are responsible for maintaining your own backup copies of important documents and files. PDFAI is a document-processing service and is not a guaranteed backup or archival service.",
+                "You are responsible for maintaining your own backup copies of important documents and files. PDF AI Assistant is a document-processing service and is not a guaranteed backup or archival service.",
             ],
         ],
     },
@@ -131,7 +130,7 @@ const clauses = [
         items: [
             [
                 "6.1",
-                "PDFAI may offer free and paid subscription plans. Current prices, billing periods, usage limits, and plan features are displayed on the pricing or checkout pages at the time of purchase.",
+                "PDF AI Assistant may offer free and paid subscription plans. Current prices, billing periods, usage limits, and plan features are displayed on the pricing or checkout pages at the time of purchase.",
             ],
             [
                 "6.2",
@@ -164,11 +163,11 @@ const clauses = [
         items: [
             [
                 "7.1",
-                "The PDFAI service, including its software, user interface, design, branding, logos, documentation, features, and content other than your submitted content, is owned by PDFAI or its licensors and is protected by applicable intellectual-property laws.",
+                "The PDF AI Assistant service, including its software, user interface, design, branding, logos, documentation, features, and content other than your submitted content, is owned by PDF AI Assistant or its licensors and is protected by applicable intellectual-property laws.",
             ],
             [
                 "7.2",
-                "Subject to these Terms and your compliance with them, we grant you a limited, non-exclusive, non-transferable, revocable right to access and use PDFAI for its intended purposes. No ownership rights in the service are transferred to you.",
+                "Subject to these Terms and your compliance with them, we grant you a limited, non-exclusive, non-transferable, revocable right to access and use PDF AI Assistant for its intended purposes. No ownership rights in the service are transferred to you.",
             ],
             [
                 "7.3",
@@ -181,7 +180,7 @@ const clauses = [
         items: [
             [
                 "8.1",
-                "If you believe that content made available through PDFAI infringes your copyright or other intellectual-property rights, you may contact us through our Contact page and provide sufficient information for us to investigate the complaint.",
+                "If you believe that content made available through PDF AI Assistant infringes your copyright or other intellectual-property rights, you may contact us through our Contact page and provide sufficient information for us to investigate the complaint.",
             ],
             [
                 "8.2",
@@ -198,7 +197,7 @@ const clauses = [
         items: [
             [
                 "9.1",
-                "We aim to keep PDFAI available and secure, but we do not guarantee uninterrupted or error-free operation. Service availability may be affected by maintenance, technical failures, internet connectivity, third-party services, security incidents, or circumstances beyond our reasonable control.",
+                "We aim to keep PDF AI Assistant available and secure, but we do not guarantee uninterrupted or error-free operation. Service availability may be affected by maintenance, technical failures, internet connectivity, third-party services, security incidents, or circumstances beyond our reasonable control.",
             ],
             [
                 "9.2",
@@ -206,7 +205,7 @@ const clauses = [
             ],
             [
                 "9.3",
-                "You must take reasonable steps to protect your account credentials and devices used to access PDFAI. You should not upload information to the service unless you are comfortable using an online processing service subject to these Terms and our Privacy Policy.",
+                "You must take reasonable steps to protect your account credentials and devices used to access PDF AI Assistant. You should not upload information to the service unless you are comfortable using an online processing service subject to these Terms and our Privacy Policy.",
             ],
         ],
     },
@@ -215,7 +214,7 @@ const clauses = [
         items: [
             [
                 "10.1",
-                'To the fullest extent permitted by applicable law, PDFAI is provided "as is" and "as available". We disclaim warranties and representations, whether express, implied, or statutory, except where such warranties cannot lawfully be excluded.',
+                'To the fullest extent permitted by applicable law, PDF AI Assistant is provided "as is" and "as available". We disclaim warranties and representations, whether express, implied, or statutory, except where such warranties cannot lawfully be excluded.',
             ],
             [
                 "10.2",
@@ -236,11 +235,11 @@ const clauses = [
         items: [
             [
                 "11.1",
-                "To the fullest extent permitted by applicable law, PDFAI and its owners, affiliates, licensors, service providers, officers, employees, and agents will not be liable for indirect, incidental, special, consequential, exemplary, or punitive damages, or for loss of profits, revenue, business opportunities, goodwill, or data arising from or related to your use of the service.",
+                "To the fullest extent permitted by applicable law, PDF AI Assistant and its owners, affiliates, licensors, service providers, officers, employees, and agents will not be liable for indirect, incidental, special, consequential, exemplary, or punitive damages, or for loss of profits, revenue, business opportunities, goodwill, or data arising from or related to your use of the service.",
             ],
             [
                 "11.2",
-                "To the fullest extent permitted by applicable law, our total aggregate liability for claims arising out of or relating to PDFAI will not exceed the amount you paid to us for the service during the twelve months immediately preceding the event giving rise to the claim.",
+                "To the fullest extent permitted by applicable law, our total aggregate liability for claims arising out of or relating to PDF AI Assistant will not exceed the amount you paid to us for the service during the twelve months immediately preceding the event giving rise to the claim.",
             ],
             [
                 "11.3",
@@ -257,7 +256,7 @@ const clauses = [
         items: [
             [
                 "12.1",
-                "To the extent permitted by applicable law, you agree to defend, indemnify, and hold harmless PDFAI and its owners, affiliates, officers, employees, and service providers from claims, losses, liabilities, damages, and reasonable costs arising from your unlawful use of the service, your violation of these Terms, or your infringement of another person's rights through content you submit to the service.",
+                "To the extent permitted by applicable law, you agree to defend, indemnify, and hold harmless PDF AI Assistant and its owners, affiliates, officers, employees, and service providers from claims, losses, liabilities, damages, and reasonable costs arising from your unlawful use of the service, your violation of these Terms, or your infringement of another person's rights through content you submit to the service.",
             ],
         ],
     },
@@ -266,11 +265,11 @@ const clauses = [
         items: [
             [
                 "13.1",
-                "You may stop using PDFAI and request deletion of your account at any time, subject to any applicable billing, legal, or retention requirements.",
+                "You may stop using PDF AI Assistant and request deletion of your account at any time, subject to any applicable billing, legal, or retention requirements.",
             ],
             [
                 "13.2",
-                "We may suspend or terminate your access to PDFAI if you materially breach these Terms, create a security or legal risk, engage in abusive or fraudulent activity, fail to make required payments, or if suspension or termination is required by law.",
+                "We may suspend or terminate your access to PDF AI Assistant if you materially breach these Terms, create a security or legal risk, engage in abusive or fraudulent activity, fail to make required payments, or if suspension or termination is required by law.",
             ],
             [
                 "13.3",
@@ -299,7 +298,7 @@ const clauses = [
             ],
             [
                 "14.3",
-                "If you continue to use PDFAI after updated Terms become effective, your continued use will constitute acceptance of the updated Terms to the extent permitted by applicable law. If you do not agree to a material change, you should stop using the service and, where applicable, cancel your subscription.",
+                "If you continue to use PDF AI Assistant after updated Terms become effective, your continued use will constitute acceptance of the updated Terms to the extent permitted by applicable law. If you do not agree to a material change, you should stop using the service and, where applicable, cancel your subscription.",
             ],
         ],
     },
@@ -321,7 +320,7 @@ const clauses = [
         items: [
             [
                 "16.1",
-                "Questions, complaints, or requests concerning these Terms can be submitted to us through the PDFAI Contact page.",
+                "Questions, complaints, or requests concerning these Terms can be submitted to us through the PDF AI Assistant Contact page.",
             ],
         ],
     },

@@ -5,7 +5,7 @@ import { tools } from "@/lib/tools";
 
 export const metadata: Metadata = {
     title: "About",
-    description: "What PDFAI is and how it handles your documents.",
+    description: "What PDF AI Assistant is and how it handles your documents.",
 };
 
 export default function AboutPage() {
@@ -13,13 +13,13 @@ export default function AboutPage() {
 
     return (
         <ContentPage
-            title="About PDFAI"
-            intro="PDFAI is a single place to convert, edit, organise and secure PDF files, with AI features for reading long documents."
+            title="About PDF AI Assistant"
+            intro="PDF AI Assistant is a single place to convert, edit, organise and secure PDF files, with AI features for reading long documents."
         >
             <Section heading="What it does">
                 <p>
                     Most PDF work means juggling separate tools — one to merge, another to compress,
-                    a third to convert to Word. PDFAI puts {tools.length} of them behind one
+                    a third to convert to Word. PDF AI Assistant puts {tools.length} of them behind one
                     interface, grouped into {categories.join(", ").toLowerCase()}.
                 </p>
                 <p>

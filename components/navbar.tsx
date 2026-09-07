@@ -198,7 +198,7 @@ export function Navbar({ signedIn: signedInProp }: { signedIn?: boolean } = {}) 
           </div>
 
           <div className="min-w-0">
-            <h2 className="text-base font-bold text-fg sm:text-lg">PDF AI</h2>
+            <h2 className="text-base font-bold text-fg sm:text-lg">PDF AI Assistant</h2>
             <p className="truncate text-xs text-muted">Smart PDF Workspace</p>
           </div>
         </Link>
