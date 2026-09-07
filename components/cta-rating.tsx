@@ -45,7 +45,8 @@ export function CtaRating() {
         <div className="mt-5 flex items-center gap-3 text-xs md:text-sm text-muted">
             <StarRating value={stats.avgRating} readOnly size={16} label="Average rating" />
             <span>
-                {stats.avgRating.toFixed(1)}/5 from {stats.totalCount.toLocaleString()}{" "}
+                {Number.isInteger(stats.avgRating) ? stats.avgRating : stats.avgRating.toFixed(1)}/5 from{" "}
+                {stats.totalCount.toLocaleString()}{" "}
                 {stats.totalCount === 1 ? "user" : "users"}
             </span>
         </div>
