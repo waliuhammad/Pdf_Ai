@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ContentPage, Section } from "@/components/marketing/content-page";
+import InArticleAd from "@/components/ads/InArticleAd";
 
 export const metadata: Metadata = {
     title: "Grammar",
@@ -14,6 +15,8 @@ export default function GrammarInfoPage() {
                 <p>Elevate your writing quality with our intelligent grammar and spelling checker. It thoroughly scans your documents to catch typos, grammatical errors, and stylistic issues instantly.</p>
                 <p>Whether you are polishing professional emails, academic papers, or official reports, ensure your content is clear, concise, and error-free every single time.</p>
             </Section>
+            {/* Replace slot with a real ad unit slot ID from AdSense. Inert until configured. */}
+            <InArticleAd slot="XXXXXXXXXX" />
         </ContentPage>
     );
 }

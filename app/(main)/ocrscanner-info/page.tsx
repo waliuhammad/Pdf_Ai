@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ContentPage, Section } from "@/components/marketing/content-page";
+import InArticleAd from "@/components/ads/InArticleAd";
 
 export const metadata: Metadata = {
     title: "OCR Scanner",
@@ -14,6 +15,8 @@ export default function OCRScannerInfoPage() {
                 <p>Our advanced OCR (Optical Character Recognition) scanner transforms static images and non-searchable scanned PDFs into fully editable, selectable text documents with high accuracy.</p>
                 <p>Extract text seamlessly from receipts, scanned certificates, or legacy documents, making your physical archives completely searchable and digital-ready in seconds.</p>
             </Section>
+            {/* Replace slot with a real ad unit slot ID from AdSense. Inert until configured. */}
+            <InArticleAd slot="XXXXXXXXXX" />
         </ContentPage>
     );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ContentPage, Section } from "@/components/marketing/content-page";
+import InArticleAd from "@/components/ads/InArticleAd";
 
 export const metadata: Metadata = {
     title: "Translate PDF",
@@ -14,6 +15,8 @@ export default function TranslatePDFInfoPage() {
                 <p>Break down language barriers with our AI-powered document translator. Translate your PDFs, reports, and manuals into dozens of global languages instantly.</p>
                 <p>Our translation tool maintains your document&apos;s original structure, layout, and formatting, ensuring professional results whether for business, academics, or personal use.</p>
             </Section>
+            {/* Replace slot with a real ad unit slot ID from AdSense. Inert until configured. */}
+            <InArticleAd slot="XXXXXXXXXX" />
         </ContentPage>
     );
 }

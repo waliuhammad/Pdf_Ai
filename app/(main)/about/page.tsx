@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ContentPage, Section } from "@/components/marketing/content-page";
+import InArticleAd from "@/components/ads/InArticleAd";
 import { tools } from "@/lib/tools";
 
 export const metadata: Metadata = {
@@ -50,6 +51,9 @@ export default function AboutPage() {
                     for what each plan includes.
                 </p>
             </Section>
+
+            {/* Replace slot with a real ad unit slot ID from AdSense. Inert until configured. */}
+            <InArticleAd slot="XXXXXXXXXX" />
         </ContentPage>
     );
 }
