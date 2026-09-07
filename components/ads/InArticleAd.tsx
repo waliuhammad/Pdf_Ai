@@ -4,36 +4,19 @@ import { useEffect, useRef } from "react";
 import {
     ADSENSE_CLIENT_ID,
     isAdSenseEnabled,
+    isAdSenseTestMode,
+    isValidAdSlot,
     showDevPlaceholder,
 } from "@/lib/adsense";
-
-function AdContainer({
-    children,
-    label,
-    minHeight,
-    className,
-    style,
-}: {
-    children: React.ReactNode;
-    label: boolean;
-    minHeight: number;
-    className?: string;
-    style?: React.CSSProperties;
-}) {
-    return (
-        <div className={className} style={{ minHeight, ...style }}>
-            {label && <div>Advertisement</div>}
-            {children}
-        </div>
-    );
-}
+import AdContainer from "./AdContainer";
 
 /**
  * Reusable fluid in-article ad, for dropping between sections of a long
  * content page (blog post, guide, tutorial).
  *
  * Same safety guarantees as DisplayAd: inert until configured, StrictMode-safe
- * push, and failure never breaks the page.
+ * push, and failure never breaks the page. When test mode is on,
+ * data-adtest="on" makes Google serve test ads with no impressions counted.
  */
 type InArticleAdProps = {
     /** Ad unit slot ID from the AdSense dashboard. */
@@ -56,7 +39,9 @@ export default function InArticleAd({
     const pushed = useRef(false);
 
     useEffect(() => {
-        if (pushed.current || !isAdSenseEnabled()) return;
+        // No push for a unit that will not render: a push with no matching
+        // <ins> is what produces "All ins elements already have ads in them".
+        if (pushed.current || !isAdSenseEnabled() || !isValidAdSlot(slot)) return;
         try {
             const w = window as unknown as { adsbygoogle?: unknown[] };
             w.adsbygoogle = w.adsbygoogle || [];
@@ -65,7 +50,7 @@ export default function InArticleAd({
         } catch {
             /* never break the app if an ad fails to load */
         }
-    }, []);
+    }, [slot]);
 
     if (showDevPlaceholder()) {
         return (
@@ -78,13 +63,13 @@ export default function InArticleAd({
                         fontSize: "0.75rem",
                     }}
                 >
-                    In-article ad slot (dev) — slot {slot}
+                    In-article ad slot (dev) — {isValidAdSlot(slot) ? `slot ${slot}` : "slot id not set yet"}
                 </div>
             </AdContainer>
         );
     }
 
-    if (!isAdSenseEnabled()) return null;
+    if (!isAdSenseEnabled() || !isValidAdSlot(slot)) return null;
 
     return (
         <AdContainer label={label} minHeight={minHeight} className={className} style={style}>
@@ -95,6 +80,7 @@ export default function InArticleAd({
                 data-ad-format="fluid"
                 data-ad-client={ADSENSE_CLIENT_ID}
                 data-ad-slot={slot}
+                {...(isAdSenseTestMode() ? { "data-adtest": "on" } : {})}
             />
         </AdContainer>
     );

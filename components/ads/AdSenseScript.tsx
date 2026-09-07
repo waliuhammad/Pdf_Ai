@@ -1,59 +1,23 @@
-import React from "react";
+import Script from "next/script";
+import { ADSENSE_CLIENT_ID, isAdSenseEnabled } from "@/lib/adsense";
 
 /**
- * Neutral wrapper around an ad unit. Provides:
- *  - consistent vertical spacing,
- *  - a small policy-friendly "Advertisement" label,
- *  - reserved height to minimize layout shift (CLS),
- *  - overflow:hidden so a wide ad can never cause horizontal scroll.
+ * Loads the Google AdSense library exactly once, globally.
  *
- * Uses inline styles that inherit the surrounding text color (currentColor) and
- * opacity, so it reads correctly in both light and dark themes WITHOUT touching
- * the existing design system, Tailwind classes, or CSS variables.
+ * Server component: it renders a single <Script> (or nothing), so it adds no
+ * client-side JavaScript of its own and cannot cause hydration mismatches.
+ * Rendered once in the root layout — never per page — so the script is never
+ * injected more than once.
  */
-type AdContainerProps = {
-    children: React.ReactNode;
-    /** Show the small "Advertisement" label. Default true. */
-    label?: boolean;
-    /** Reserve vertical space (px) to minimize layout shift. */
-    minHeight?: number;
-    className?: string;
-    style?: React.CSSProperties;
-};
+export default function AdSenseScript() {
+    if (!isAdSenseEnabled()) return null;
 
-export default function AdContainer({
-    children,
-    label = true,
-    minHeight,
-    className,
-    style,
-}: AdContainerProps) {
     return (
-        <div
-            className={className}
-            style={{ width: "100%", margin: "1.5rem 0", textAlign: "center", ...style }}
-        >
-            {label && (
-                <div
-                    style={{
-                        fontSize: "0.6875rem",
-                        letterSpacing: "0.05em",
-                        textTransform: "uppercase",
-                        opacity: 0.5,
-                        marginBottom: "0.25rem",
-                    }}
-                >
-                    Advertisement
-                </div>
-            )}
-            <div
-                style={{
-                    minHeight: minHeight ? `${minHeight}px` : undefined,
-                    overflow: "hidden",
-                }}
-            >
-                {children}
-            </div>
-        </div>
+        <Script
+            id="google-adsense"
+            strategy="afterInteractive"
+            crossOrigin="anonymous"
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
+        />
     );
 }

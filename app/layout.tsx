@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { getSiteUrl } from "@/lib/site-url";
 import { ThemeProvider } from "../components/theme-provider";
 import { LocaleProvider } from "@/components/locale-provider";
-import AdSenseScript from "@/components/ads/AdSenseScript"; // ← ADDED
+import AdSenseScript from "@/components/ads/AdSenseScript";
 import "./globals.css";
 
 const siteUrl = getSiteUrl();
@@ -53,7 +53,7 @@ export default function RootLayout({
             </TestPlanProvider>
           </LocaleProvider>
         </ThemeProvider>
-        <AdSenseScript /> {/* ← ADDED */}
+        <AdSenseScript />
       </body>
     </html>
   );
