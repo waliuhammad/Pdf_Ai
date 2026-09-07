@@ -108,8 +108,7 @@ export default function ToolCard({
 
                 Hidden below lg for the same reason the badge always was: at
                 roughly 110px wide a corner chip covers the title. */}
-            {(comingSoon || badge || advanced) && (
-                <div className="hidden lg:absolute lg:right-4 lg:top-4 lg:flex lg:items-center lg:gap-1.5">
+            <div className="hidden lg:absolute lg:right-4 lg:top-4 lg:flex lg:items-center lg:gap-1.5">
                     {(comingSoon || badge) && (
                         <span
                             className="
@@ -130,27 +129,24 @@ export default function ToolCard({
                         </span>
                     )}
 
-                    {advanced && (
-                        <span
-                            className="
-                                inline-flex
-                                shrink-0
-                                rounded-full
-                                bg-primary/10
-                                px-2.5
-                                py-1
-                                text-[10px]
-                                font-semibold
-                                uppercase
-                                tracking-wide
-                                text-primary
-                            "
-                        >
-                            {badgeLabel("Advanced")}
-                        </span>
-                    )}
-                </div>
-            )}
+                    <span
+                        className="
+                            inline-flex
+                            shrink-0
+                            rounded-full
+                            bg-primary/10
+                            px-2.5
+                            py-1
+                            text-[10px]
+                            font-semibold
+                            uppercase
+                            tracking-wide
+                            text-primary
+                        "
+                    >
+                        {badgeLabel(advanced ? "Advanced" : "Basic")}
+                    </span>
+            </div>
 
             {/* Hover Glow */}
             <div
