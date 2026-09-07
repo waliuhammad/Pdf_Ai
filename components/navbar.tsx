@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { isToolPath } from "@/lib/tool-paths";
 import { useState, useEffect } from "react";
-import { Menu, X, FileText } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { Logo } from "@/components/brand/logo";
 import { ThemeToggle } from "./theme-toggle";
 import { hasSessionHint } from "@/lib/session-hint";
 
@@ -193,9 +194,7 @@ export function Navbar({ signedIn: signedInProp }: { signedIn?: boolean } = {}) 
             grow, so it shortens rather than pushing the actions off a 320px
             screen. */}
         <Link href="/" className="flex min-w-0 items-center gap-2.5 sm:gap-3">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground sm:h-10 sm:w-10">
-            <FileText size={20} />
-          </div>
+          <Logo size={40} className="h-9 w-9 shrink-0 sm:h-10 sm:w-10" />
 
           <div className="min-w-0">
             <h2 className="text-base font-bold text-fg sm:text-lg">PDF AI Assistant</h2>

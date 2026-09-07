@@ -4,6 +4,7 @@ import { useState } from "react";
 import { DownloadNotice } from "@/components/download-notice";
 import { SecureNote, UploadCard } from "@/components/tools/upload-card";
 import { AiRunButton } from "@/components/tools/ai-run-button";
+import { FeatureLockNotice, useFeatureLock } from "@/components/tools/feature-lock";
 import { ResultActions } from "@/components/tools/result-actions";
 import { downloadBlob } from "@/lib/download";
 import { Languages, Sparkles, FileText, X } from "lucide-react";
@@ -14,6 +15,7 @@ import { useCancellableRun, wasCancelled } from "@/hooks/useCancellableRun";
 export default function PdfTranslatorPage() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const { begin, cancel } = useCancellableRun();
+  const { locked } = useFeatureLock("translate");
   const [fileMeta, setFileMeta] = useState<{ name: string; size: string } | null>(null);
   const [targetLang, setTargetLang] = useState("Spanish");
 
@@ -132,6 +134,12 @@ export default function PdfTranslatorPage() {
         </p>
       </div>
 
+      {locked && (
+        <div className="mb-6">
+          <FeatureLockNotice />
+        </div>
+      )}
+
       {error && (
         <div className="mb-6 p-4 rounded-xl border border-red-500/30 bg-red-500/10 text-red-600 dark:text-red-400 text-sm font-semibold text-center transition-all">
           ⚠️ {error}
@@ -189,7 +197,7 @@ export default function PdfTranslatorPage() {
                 label="Translate PDF"
                 loadingLabel="Translating..."
                 loading={loading}
-                disabled={!selectedFile}
+                disabled={!selectedFile || locked}
               />
             </div>
           </div>

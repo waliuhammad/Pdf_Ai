@@ -194,9 +194,13 @@ export default function RotatePdfPage(): JSX.Element {
   const [angleInputValue, setAngleInputValue] = useState<string>("0");
   const [angleFieldFocused, setAngleFieldFocused] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (!angleFieldFocused) setAngleInputValue(String(rotation));
-  }, [rotation, angleFieldFocused]);
+  // Shown, rather than mirrored into state by an effect. While the field has
+  // focus it shows exactly what is being typed; the rest of the time it shows
+  // whatever `rotation` is, so the rotate buttons and the per-page controls
+  // move it without anything having to keep two values in step. The effect
+  // that used to do that ran a second render after every rotation, and only
+  // to copy a number that was already on hand.
+  const angleShown = angleFieldFocused ? angleInputValue : String(rotation);
 
   const commitAngleInput = (): void => {
     const parsed = parseInt(angleInputValue, 10);
@@ -548,8 +552,9 @@ export default function RotatePdfPage(): JSX.Element {
                       type="text"
                       inputMode="numeric"
                       pattern="[0-9]*"
-                      value={angleInputValue}
+                      value={angleShown}
                       onFocus={(e) => {
+                        setAngleInputValue(String(rotation));
                         setAngleFieldFocused(true);
                         // Select-all on focus so typing a new value doesn't
                         // require manually clearing the old one first.

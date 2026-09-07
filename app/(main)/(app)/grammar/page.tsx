@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { DownloadNotice } from "@/components/download-notice";
 import { SecureNote, UploadCard } from "@/components/tools/upload-card";
 import { AiRunButton } from "@/components/tools/ai-run-button";
+import { FeatureLockNotice, useFeatureLock } from "@/components/tools/feature-lock";
 import { ResultActions } from "@/components/tools/result-actions";
 import { downloadBlob } from "@/lib/download";
 import { CheckCheck, Sparkles, FileText, X } from "lucide-react";
@@ -25,6 +26,7 @@ function cleanText(raw: string): string {
 export default function GrammarCheckerPage() {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const { begin, cancel } = useCancellableRun();
+    const { locked } = useFeatureLock("grammar");
     const [fileMeta, setFileMeta] = useState<{ name: string; size: string } | null>(null);
     const [correctedText, setCorrectedText] = useState<string | null>(null);
     const [originalText, setOriginalText] = useState<string | null>(null);
@@ -239,6 +241,12 @@ if (!res.ok) {
                 <p className="text-muted text-sm mt-1">Upload a PDF document to check and correct grammar and spelling automatically.</p>
             </div>
 
+            {locked && (
+                <div className="mb-6">
+                    <FeatureLockNotice />
+                </div>
+            )}
+
             {error && (
                 <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm text-center">
                     {error}
@@ -288,7 +296,7 @@ if (!res.ok) {
                                 label="Check Grammar"
                                 loadingLabel="Analyzing PDF..."
                                 loading={loading}
-                                disabled={!selectedFile}
+                                disabled={!selectedFile || locked}
                                 onClick={handleCheckGrammar}
                             />
                         </div>

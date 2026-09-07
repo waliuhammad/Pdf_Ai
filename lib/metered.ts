@@ -8,6 +8,20 @@ import {
     type UsageCategory,
     type UsageResult,
 } from "@/lib/usage";
+import type { PlanId } from "@/lib/plans";
+
+/**
+ * What metered() knows by the time the handler runs, and the handler would
+ * otherwise have to work out again.
+ *
+ * The plan costs a Firestore read and a Remote Config read to resolve, and
+ * checkAndCountUsage has just done both. Passing it on means the AI routes can
+ * size-check the upload against the plan without repeating either — and it
+ * honours the dev-plan override for free, which a second lookup would not.
+ */
+export interface MeteredContext {
+    plan: PlanId;
+}
 
 /**
  * The shared gate for every metered tool route.
@@ -63,12 +77,20 @@ function limitRefusal(usage: UsageResult): NextResponse {
         usage.categoryLimit !== null &&
         usage.categoryUsed !== null;
 
-    const message = hitCategory
-        ? `Daily ${CATEGORY_LABEL[usage.blockedBy as string] ?? usage.blockedBy} limit reached ` +
-        `(${cap(usage.categoryUsed!, usage.categoryLimit!)}/${usage.categoryLimit} on the ${usage.plan} plan). ` +
-        `Upgrade for a higher allowance, or come back tomorrow.`
-        : `Daily limit reached (${cap(usage.used, usage.limit)}/${usage.limit} operations on the ${usage.plan} plan). ` +
-        `Upgrade for a higher daily allowance, or come back tomorrow.`;
+    // A ceiling of zero is a plan that does not include the tool at all, not a
+    // day's worth that has run out. "0/0 operations used" reads as a fault;
+    // saying the plan does not include it explains what upgrading would buy.
+    const notIncluded = hitCategory && usage.categoryLimit === 0;
+
+    const message = notIncluded
+        ? `${CATEGORY_LABEL[usage.blockedBy as string] ?? "This tool"} is not included on the ` +
+        `${usage.plan} plan. Upgrade to use it.`
+        : hitCategory
+            ? `Daily ${CATEGORY_LABEL[usage.blockedBy as string] ?? usage.blockedBy} limit reached ` +
+            `(${cap(usage.categoryUsed!, usage.categoryLimit!)}/${usage.categoryLimit} on the ${usage.plan} plan). ` +
+            `Upgrade for a higher allowance, or come back tomorrow.`
+            : `Daily limit reached (${cap(usage.used, usage.limit)}/${usage.limit} operations on the ${usage.plan} plan). ` +
+            `Upgrade for a higher daily allowance, or come back tomorrow.`;
 
     return NextResponse.json({ success: false, error: message, message }, { status: 429 });
 }
@@ -101,7 +123,7 @@ interface MeteredOptions {
 export function metered(
     // Response, not NextResponse: the tools that stream a file back build a
     // plain Response, and `ok` is all this needs from it.
-    handler: (req: NextRequest) => Promise<Response>,
+    handler: (req: NextRequest, ctx: MeteredContext) => Promise<Response>,
     options: MeteredOptions = {}
 ): (req: NextRequest) => Promise<Response> {
     return async function meteredHandler(req: NextRequest): Promise<Response> {
@@ -115,7 +137,13 @@ export function metered(
 
         let response: Response;
         try {
-            response = await handler(req);
+            // usage.plan, not devPlan: the override is null for every real
+            // user, so passing it here would hand the handler `undefined` and
+            // any plan-keyed lookup would come back empty — a size limit that
+            // works while you are testing with the toggle on and silently
+            // allows everything in production. checkAndCountUsage has already
+            // applied the override, so this is the resolved plan either way.
+            response = await handler(req, { plan: usage.plan });
         } catch (err) {
             await refundOperation(uid, category);
             throw err;

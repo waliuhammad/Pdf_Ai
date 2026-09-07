@@ -1,8 +1,8 @@
 import { getAppConfig } from "@/lib/remote-config";
 import { NextRequest, NextResponse } from "next/server";
 import { readFormData } from "@/lib/api";
-import { metered } from "@/lib/metered";
-import { rejectBadUpload } from "@/lib/uploads";
+import { metered, type MeteredContext } from "@/lib/metered";
+import { maxUploadBytesFor, rejectBadUpload } from "@/lib/uploads";
 import { relayToAiService } from "@/lib/ai-service";
 
 // Gemini translates the whole document — measured about 8s,
@@ -10,7 +10,7 @@ import { relayToAiService } from "@/lib/ai-service";
 export const maxDuration = 60;
 
 
-export const POST = metered(async (req: NextRequest) => {
+export const POST = metered(async (req: NextRequest, ctx: MeteredContext) => {
   try {
     // Remote Config kill-switch: lets the AI features be disabled from the
     // Firebase Console (parameter: ai_tools_enabled) without a redeploy.
@@ -38,7 +38,10 @@ export const POST = metered(async (req: NextRequest) => {
       return NextResponse.json({ error: "No file provided." }, { status: 400 });
     }
 
-    const badUpload = rejectBadUpload(upload, "pdf");
+    // Sized against the plan, not the container: these four forward pages to
+    // Gemini and are billed per page, so the ceiling is a cost control rather
+    // than a memory one.
+    const badUpload = rejectBadUpload(upload, "pdf", await maxUploadBytesFor(ctx.plan));
     if (badUpload) return badUpload;
 
     // Every failure mode is separated inside relayToAiService: an unreachable

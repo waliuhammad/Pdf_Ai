@@ -8,7 +8,6 @@ import { useT } from "@/components/locale-provider";
 import { useState } from "react";
 import {
     LayoutDashboard,
-    FileText,
     Wrench,
     Settings,
     LogOut,

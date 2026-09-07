@@ -1,4 +1,5 @@
 import "server-only";
+import type { PlanId } from "@/lib/plans";
 import { NextResponse } from "next/server";
 
 /**
@@ -28,6 +29,29 @@ import { NextResponse } from "next/server";
 export const MAX_UPLOAD_BYTES = 25 * 1024 * 1024;
 
 export const MAX_UPLOAD_LABEL = "25 MB";
+
+/**
+ * The upload ceiling for the AI routes, which is a per-plan question rather
+ * than a per-container one: those four forward pages to Gemini and are billed
+ * by the page, so the limit is a cost control.
+ *
+ * Every plan is on the shared 25 MB today, which is exactly what the routes
+ * enforced before this existed — the mechanism is here so the ceilings can be
+ * pulled apart without touching four routes, not because the numbers have been
+ * decided. Set the real ones here, or move the table to Remote Config.
+ *
+ * Async because that is how the routes call it: whatever these become, a
+ * Remote Config lookup can slot in without changing a single caller.
+ */
+const AI_UPLOAD_BYTES: Record<PlanId, number> = {
+    free: MAX_UPLOAD_BYTES,
+    pro: MAX_UPLOAD_BYTES,
+    business: MAX_UPLOAD_BYTES,
+};
+
+export async function maxUploadBytesFor(plan: PlanId): Promise<number> {
+    return AI_UPLOAD_BYTES[plan] ?? MAX_UPLOAD_BYTES;
+}
 
 /** What each family of tools will accept, by extension and by MIME type. */
 export const ACCEPT = {
@@ -75,15 +99,25 @@ export type AcceptKind = keyof typeof ACCEPT;
  * guard against the obviously wrong file, not a content check: the parser
  * remains the thing that decides whether the bytes are really a document.
  */
-export function rejectBadUpload(file: File, kind: AcceptKind): NextResponse | null {
+export function rejectBadUpload(
+    file: File,
+    kind: AcceptKind,
+    maxBytes: number = MAX_UPLOAD_BYTES
+): NextResponse | null {
     if (file.size === 0) {
         return bad(`That file is empty. Please choose ${ACCEPT[kind].label}.`);
     }
 
-    if (file.size > MAX_UPLOAD_BYTES) {
+    if (file.size > maxBytes) {
         const size = (file.size / (1024 * 1024)).toFixed(1);
+        // The limit in the message is the one actually applied, not the shared
+        // constant — telling somebody the limit is 25 MB while refusing at 10
+        // is worse than not saying a number at all.
+        const limit = maxBytes === MAX_UPLOAD_BYTES
+            ? MAX_UPLOAD_LABEL
+            : `${(maxBytes / (1024 * 1024)).toFixed(0)} MB`;
         return bad(
-            `That file is ${size} MB. The limit is ${MAX_UPLOAD_LABEL} — please compress it or split it first.`,
+            `That file is ${size} MB. The limit is ${limit} — please compress it or split it first.`,
             413
         );
     }

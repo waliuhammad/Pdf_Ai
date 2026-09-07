@@ -78,11 +78,11 @@ const DEFAULTS = {
     pro_plan_summary: "5",
     business_plan_summary: "10",
 
-    free_plan_grammar: "1",
+    free_plan_grammar: "0",
     pro_plan_grammar: "5",
     business_plan_grammar: "10",
 
-    free_plan_translate: "1",
+    free_plan_translate: "0",
     pro_plan_translate: "5",
     business_plan_translate: "10",
 } as const;
