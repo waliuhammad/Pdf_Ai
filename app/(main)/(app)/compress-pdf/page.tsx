@@ -50,23 +50,21 @@ export default function CompressPdfPage() {
   const generateOptions = (fileSizeBytes: number): TargetOption[] => {
     const fileSizeKB = fileSizeBytes / 1024;
 
-    const percentages = [
-      { label: "Extreme Compression (~75% reduction)", ratio: 0.25 },
-      { label: "High Compression (~60% reduction)", ratio: 0.40 },
-      { label: "Medium Compression (~45% reduction)", ratio: 0.55 },
-      { label: "Recommended Compression (~30% reduction)", ratio: 0.70 },
-      { label: "Low Compression (~15% reduction)", ratio: 0.85 },
-      { label: "Minimal Compression (~5% reduction)", ratio: 0.95 },
+    const levels = [
+      { label: "Extreme — smallest file, visibly softer images", ratio: 0.25 },
+      { label: "High — much smaller, some loss of detail", ratio: 0.40 },
+      { label: "Medium — smaller, detail mostly kept", ratio: 0.55 },
+      { label: "Recommended — a good balance for sharing", ratio: 0.70 },
+      { label: "Low — gentle, hard to tell apart", ratio: 0.85 },
+      { label: "Minimal — safest, trims excess resolution only", ratio: 0.95 },
     ];
 
-    return percentages.map((p) => {
-      const targetKB = Math.round(fileSizeKB * p.ratio);
-      return {
-        label: `${p.label} - Target: ~${targetKB < 1024 ? `${targetKB} KB` : `${(targetKB / 1024).toFixed(1)} MB`}`,
-        targetKB,
-        ratio: p.ratio,
-      };
-    });
+    return levels.map((level) => ({
+      label: level.label,
+      // Still sent, so a future size-targeted mode has something to aim at.
+      targetKB: Math.round(fileSizeKB * level.ratio),
+      ratio: level.ratio,
+    }));
   };
 
   const handleFile = (fileList: FileList | null) => {
@@ -149,7 +147,7 @@ export default function CompressPdfPage() {
         </div>
         <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-fg tracking-tight">Compress PDF</h1>
         <p className="text-slate-600 dark:text-[#9ca3af] text-xs sm:text-sm mt-1.5 max-w-lg mx-auto px-2">
-          Select your target size and compress your PDF while keeping the best possible quality.
+          Choose how hard to compress, then download. Text stays sharp — it is the images that shrink.
         </p>
       </div>
 

@@ -1,18 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { readFormData } from "@/lib/api";
 import { metered } from "@/lib/metered";
-import { PDFDocument } from "pdf-lib";
 import { rejectBadUpload } from "@/lib/uploads";
+import { compressPdf } from "@/lib/pdf/compress";
+
+// Re-encoding several full-page photographs takes longer than the platform
+// default allows. A four-page report runs in a couple of seconds; a long
+// scanned document is the case this headroom is for.
+export const maxDuration = 60;
 
 export const POST = metered(async (req: NextRequest) => {
   try {
-    // Every tool counts against the user's daily allowance (2/20/50 by
-    // plan, from Remote Config) and therefore requires sign-in.
-
     const formData = await readFormData(req);
     if (!formData) {
       return NextResponse.json({ error: "No file provided." }, { status: 400 });
     }
+
     const file = formData.get("file") as File | null;
     const targetSizeKB = parseInt((formData.get("targetSizeKB") as string) || "0", 10);
     const targetRatio = parseFloat((formData.get("targetRatio") as string) || "0.5");
@@ -25,52 +28,26 @@ export const POST = metered(async (req: NextRequest) => {
     const badUpload = rejectBadUpload(file, "pdf");
     if (badUpload) return badUpload;
 
-    const arrayBuffer = await file.arrayBuffer();
-    const srcDoc = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
+    const input = new Uint8Array(await file.arrayBuffer());
+    const result = await compressPdf(input, targetRatio);
 
-    // Create a new compressed PDF container
-    const pdfDoc = await PDFDocument.create();
-
-    // Copy pages into the new document
-    const pageIndices = Array.from({ length: srcDoc.getPageCount() }, (_, i) => i);
-    const pages = await pdfDoc.copyPages(srcDoc, pageIndices);
-
-    // Scale pages according to target ratio if extreme compression is targeted
-    pages.forEach((page) => {
-      if (targetRatio <= 0.3) {
-        page.scale(0.8, 0.8);
-      }
-      pdfDoc.addPage(page);
-    });
-
-    // Strip metadata to minimize overhead
-    pdfDoc.setTitle("");
-    pdfDoc.setAuthor("");
-    pdfDoc.setSubject("");
-    pdfDoc.setKeywords([]);
-    pdfDoc.setProducer("");
-    pdfDoc.setCreator("");
-
-    // Save with maximum structural stream compression.
-    //
-    // Note: the output is the best *valid* compression achievable here. The
-    // previous version truncated the byte stream to force the requested
-    // target size, which corrupts the file — a PDF's cross-reference table
-    // lives at the end, so cutting bytes off produces a document many
-    // viewers cannot open. A slightly-larger-than-requested valid file
-    // beats a to-the-byte broken one.
-    const compressedBytes = await pdfDoc.save({
-      useObjectStreams: true,
-      addDefaultPage: false,
-    });
-
-    const resultBuffer = Buffer.from(compressedBytes);
-
-    return new NextResponse(resultBuffer, {
+    // The page shows what actually happened rather than the percentage the
+    // level advertises. The two are not the same thing and never were: a
+    // document of pure text cannot be made 75% smaller by any honest means, and
+    // telling somebody it was is how the old version came to claim a reduction
+    // it had not made.
+    return new NextResponse(Buffer.from(result.bytes), {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",
         "Content-Disposition": `attachment; filename="compressed_${targetSizeKB > 0 ? `${targetSizeKB}KB_` : ""}${file.name}"`,
+        "X-Original-Size": String(result.originalSize),
+        "X-Compressed-Size": String(result.compressedSize),
+        "X-Images-Recoded": String(result.imagesRecoded),
+        // So a browser can read the three headers above off a cross-origin
+        // response; without this they are invisible to fetch().
+        "Access-Control-Expose-Headers":
+          "X-Original-Size, X-Compressed-Size, X-Images-Recoded",
       },
     });
   } catch (error) {
