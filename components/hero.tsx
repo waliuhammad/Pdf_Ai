@@ -3,7 +3,6 @@ import {
     ArrowRight,
     Sparkles,
     ShieldCheck,
-    Star,
     FileText,
     Brain,
     Upload,
@@ -86,19 +85,8 @@ export function Hero() {
                         </Link>
                     </div>
 
-                    {/* Trust */}
+                    {/* Trust. One line, and one that is actually true. */}
                     <div className="mt-6 sm:mt-8 flex flex-wrap gap-x-4 gap-y-2 sm:gap-5">
-                        <div className="flex items-center gap-1.5">
-                            <Star
-                                className="text-yellow-500"
-                                fill="currentColor"
-                                size={16}
-                            />
-                            <span className="text-xs text-muted">
-                                5.0 Rating
-                            </span>
-                        </div>
-
                         <div className="flex items-center gap-1.5">
                             <ShieldCheck
                                 size={16}
@@ -106,16 +94,6 @@ export function Hero() {
                             />
                             <span className="text-xs text-muted">
                                 Secure Processing
-                            </span>
-                        </div>
-
-                        <div className="flex items-center gap-1.5">
-                            <FileText
-                                size={16}
-                                className="text-primary"
-                            />
-                            <span className="text-xs text-muted">
-                                10M+ PDFs Processed
                             </span>
                         </div>
                     </div>
