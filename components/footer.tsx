@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { Logo } from "@/components/brand/logo";
-import {
+/*import {
     FaLinkedin,
     FaGithub,
     FaTwitter,
 } from "react-icons/fa";
-
+*/
 
 /** `href` is omitted where the destination page doesn't exist yet — those render
  *  as plain text rather than as links that would 404. */
@@ -125,7 +125,7 @@ export default function Footer() {
                     </p>
 
 
-                    <div className="
+                    {/* <div className="
                         flex
                         justify-center
                         md:justify-start
@@ -166,7 +166,7 @@ export default function Footer() {
                     </div>
 
                 </div>
-
+ */}
 
 
                 {/* The three link groups. They stacked one under another on a
