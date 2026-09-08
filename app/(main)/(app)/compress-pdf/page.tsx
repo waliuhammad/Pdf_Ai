@@ -202,7 +202,7 @@ export default function CompressPdfPage() {
             <div className="space-y-4">
               <div>
                 <label className="text-xs uppercase tracking-wider font-semibold text-slate-600 dark:text-[#9ca3af] block mb-1.5">
-                  Select Compression Level & Target Size
+                  Select Compression Level
                 </label>
                 {/* The chevron is ours rather than the browser's. Chrome anchors
                     the native one to the border box and ignores padding-right,
