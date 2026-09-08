@@ -54,7 +54,7 @@ const EVERYDAY_TOOLS = new Set([
     "/compress-pdf",
     "/rotate-pdf",
     "/pdf-to-image",
-    "/image-to-pdf",
+    "/pdf-to-word",
 ]);
 
 const allTools: Tool[] = [

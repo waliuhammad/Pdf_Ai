@@ -337,7 +337,7 @@ export default function ImageToPdf(): JSX.Element {
 
     // Converting happens in the browser, so no route meters this tool. Claim
     // the operation first, and stop if the plan says no.
-    const claim = await claimOperation();
+    const claim = await claimOperation("advanced");
     if (!claim.ok) {
       setError(claim.message);
       return;
