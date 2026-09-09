@@ -7,6 +7,7 @@ import {
     planForVariant,
     revokePlan,
     verifyWebhookSignature,
+    recordPaymentFailure,
 } from "@/lib/billing/lemonsqueezy"
 
 // crypto and firebase-admin both need Node, not Edge.
@@ -25,6 +26,14 @@ const GRANTING = new Set([
     // A cancelled subscription is still a paid one until the period runs out.
     // Revoking on the click would take away what the customer already paid for.
     "subscription_cancelled",
+    // A renewal that failed and then went through. Lemon Squeezy sends this
+    // instead of another payment_success, so without it a subscriber who
+    // recovered from a failed card kept their old period end and lapsed on it.
+    "subscription_payment_recovered",
+    // Whether a pause takes access away depends on how it was set up, so this
+    // is decided from the payload further down rather than by which set it is
+    // in. See pauseMode().
+    "subscription_paused",
 ])
 
 /** Events that mean "this account should not have a plan, as of now". */
@@ -41,7 +50,22 @@ const REVOKING = new Set(["subscription_expired", "subscription_payment_refunded
  * own id too, which is why the account lookup takes the subscription id from
  * the attributes rather than from `data`.
  */
-const INVOICE_EVENTS = new Set(["subscription_payment_success", "subscription_payment_refunded"])
+const INVOICE_EVENTS = new Set([
+    "subscription_payment_success",
+    "subscription_payment_refunded",
+    "subscription_payment_recovered",
+    "subscription_payment_failed",
+])
+
+/**
+ * Events that record something and leave the plan alone.
+ *
+ * A failed renewal is not a lapsed subscription. Lemon Squeezy retries over
+ * several days and only sends subscription_expired if every attempt fails, so
+ * revoking on the first failure would lock out a customer over a card they are
+ * about to replace.
+ */
+const INFORMATIONAL = new Set(["subscription_payment_failed"])
 
 /** Subscription states that are over, whatever event carried them. */
 const DEAD_STATUSES = new Set(["expired", "unpaid"])
@@ -193,7 +217,7 @@ export async function POST(req: Request) {
             await handleOrder(payload)
         } else if (event === "order_refunded") {
             await handleOrderRefund(payload)
-        } else if (GRANTING.has(event) || REVOKING.has(event)) {
+        } else if (GRANTING.has(event) || REVOKING.has(event) || INFORMATIONAL.has(event)) {
             await handleSubscription(event, payload)
         } else {
             console.log(`[lemonsqueezy] ignoring ${event}`)
@@ -292,6 +316,25 @@ async function handleOrderRefund(payload: Payload): Promise<void> {
     console.log(`[lemonsqueezy] revoked plan for ${uid} after a refunded order`)
 }
 
+/**
+ * How a paused subscription was set up, or null if it is not paused.
+ *
+ * Lemon Squeezy offers two kinds of pause and they mean opposite things for
+ * access. "void" suspends the subscription — the customer is not billed and
+ * should not have the plan. "free" keeps them on it for nothing, which is used
+ * for goodwill and retention, and taking their plan away would be the wrong
+ * thing entirely.
+ *
+ * Read from the attributes rather than from the event name, because a pause
+ * also arrives on subscription_updated.
+ */
+function pauseMode(attrs: Record<string, unknown>): string | null {
+    const pause = attrs.pause
+    if (!pause || typeof pause !== "object") return null
+    const mode = (pause as { mode?: unknown }).mode
+    return typeof mode === "string" ? mode : null
+}
+
 async function handleSubscription(event: string, payload: Payload): Promise<void> {
     const eventAttrs = payload.data?.attributes ?? {}
     const isInvoice = INVOICE_EVENTS.has(event)
@@ -303,6 +346,15 @@ async function handleSubscription(event: string, payload: Payload): Promise<void
     const uid = await resolveUid(payload, subscriptionId)
     if (!uid) {
         console.error(`[lemonsqueezy] ${event} for subscription ${subscriptionId} has no account`)
+        return
+    }
+
+    if (INFORMATIONAL.has(event)) {
+        await recordPaymentFailure(uid, subscriptionId)
+        console.log(
+            `[lemonsqueezy] ${event} for ${uid}: noted, plan left alone while ` +
+            `Lemon Squeezy retries`
+        )
         return
     }
 
@@ -336,6 +388,14 @@ async function handleSubscription(event: string, payload: Payload): Promise<void
     // Checked against the subscription's status, never an invoice's: an
     // invoice's "paid" or "refunded" says nothing about whether the plan is
     // still running.
+    // Checked before the status, because a paused subscription's status is
+    // "paused" either way and only the mode says whether access goes with it.
+    if (pauseMode(attrs) === "void") {
+        await revokePlan(uid, `${event} (paused, void)`)
+        console.log(`[lemonsqueezy] revoked plan for ${uid}: the subscription is paused`)
+        return
+    }
+
     if (DEAD_STATUSES.has(status)) {
         await revokePlan(uid, `${event} (${status})`)
         console.log(`[lemonsqueezy] revoked plan for ${uid}: the subscription is ${status}`)

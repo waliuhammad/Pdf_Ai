@@ -250,12 +250,45 @@ export async function grantPlan(args: {
                     provider: "lemonsqueezy",
                     planId: args.planId,
                     currentPeriodEnd: planExpiresAt,
+                    // Money arrived, so whatever went wrong last time is over.
+                    // Left set, a recovered subscriber would keep being told
+                    // their payment had failed.
+                    paymentFailedAt: null,
                     updatedAt: FieldValue.serverTimestamp(),
                 },
                 { merge: true }
             )
         }
     })
+}
+
+/**
+ * Notes that a renewal payment failed, without touching the plan.
+ *
+ * Lemon Squeezy retries a failed renewal over several days before giving up,
+ * and only then sends subscription_expired. Cutting access off at the first
+ * failure would lock out a paying customer over an expired card they are about
+ * to replace — so this records the problem and lets the retries run. If they
+ * all fail, the expiry event revokes the plan through the usual path.
+ *
+ * Stored so the account can be told. A subscriber whose card is failing has a
+ * few days to fix it and no way of knowing unless something says so.
+ */
+export async function recordPaymentFailure(
+    uid: string,
+    subscriptionId: string | null
+): Promise<void> {
+    const store = database()
+
+    await store.collection("subscriptions").doc(uid).set(
+        {
+            provider: "lemonsqueezy",
+            ...(subscriptionId ? { subscriptionId } : {}),
+            paymentFailedAt: Date.now(),
+            updatedAt: FieldValue.serverTimestamp(),
+        },
+        { merge: true }
+    )
 }
 
 /**
@@ -301,6 +334,8 @@ export interface StoredSubscription {
     currentPeriodEnd: number | null
     autoRenew: boolean
     provider: string | null
+    /** When a renewal payment last failed, while Lemon Squeezy retries it. */
+    paymentFailedAt: number | null
 }
 
 export async function subscriptionFor(uid: string): Promise<StoredSubscription | null> {
@@ -317,6 +352,7 @@ export async function subscriptionFor(uid: string): Promise<StoredSubscription |
         currentPeriodEnd: (data.currentPeriodEnd as number) ?? null,
         autoRenew: (data.autoRenew as boolean) ?? false,
         provider: (data.provider as string) ?? null,
+        paymentFailedAt: (data.paymentFailedAt as number) ?? null,
     }
 }
 
