@@ -34,6 +34,24 @@ export interface Plan {
     features: string[];
 }
 
+/**
+ * What a plan should cost, in cents, for the whole billing period.
+ *
+ * Cents because money in floats is a bug waiting for a decimal: 12.99 * 100 is
+ * 1298.9999999999998. And the whole period, not per month, because that is the
+ * figure the payment provider charges and therefore the only one worth
+ * comparing against.
+ */
+export function priceCentsFor(planId: PlanId, cycle: BillingCycle): number | null {
+    const plan = PLANS.find((p) => p.id === planId);
+    if (!plan) return null;
+
+    // yearlyPrice is the per-month equivalent shown in the yearly column, so a
+    // year's invoice is twelve of them.
+    const dollars = cycle === "yearly" ? plan.yearlyPrice * 12 : plan.monthlyPrice;
+    return Math.round(dollars * 100);
+}
+
 export const PLANS: Plan[] = [
     {
         id: "free",

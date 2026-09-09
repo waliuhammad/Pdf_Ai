@@ -3,6 +3,7 @@ import { createHmac, timingSafeEqual } from "node:crypto"
 import { FieldValue, getFirestore, type Firestore } from "firebase-admin/firestore"
 import { getAdminApp } from "@/lib/firebase/admin"
 import type { BillingCycle, PlanId } from "@/lib/plans"
+import { priceCentsFor } from "@/lib/plans"
 
 const API = "https://api.lemonsqueezy.com/v1"
 
@@ -125,6 +126,51 @@ async function lemonSqueezyFetch(path: string, init?: RequestInit): Promise<unkn
  * Custom values must be strings — a number is silently dropped, and the webhook
  * then has a valid payment belonging to nobody.
  */
+/**
+ * Refuses to sell at a price the site did not advertise.
+ *
+ * The amount charged is whatever the Lemon Squeezy variant says, and the amount
+ * shown is whatever lib/plans.ts says. Nothing kept the two in step, and they
+ * had drifted the whole way apart: the store was billing $50 a month for the
+ * plan advertised at $12.99, and $22 for the one advertised at $38.99 — Pro
+ * dearer than Business, and every customer charged an amount they never agreed
+ * to.
+ *
+ * Checked at the moment of sale rather than trusted, because the price lives in
+ * someone else's dashboard and can be edited there without touching this repo.
+ * A refused checkout is a lost sale; a completed one at the wrong price is a
+ * chargeback and a complaint to a regulator.
+ *
+ * The detail goes in the thrown message so it reaches the server log. The
+ * caller turns it into "payments are unavailable", which is what the customer
+ * should see — the numbers are our problem, not theirs.
+ */
+async function assertPriceMatchesAdvertised(
+    planId: PaidPlanId,
+    cycle: BillingCycle,
+    variantId: string
+): Promise<void> {
+    const advertised = priceCentsFor(planId, cycle)
+    if (advertised === null) throw new Error(`no advertised price for ${planId}/${cycle}`)
+
+    const body = (await lemonSqueezyFetch(`/variants/${variantId}`)) as {
+        data?: { attributes?: { price?: number } }
+    }
+    const charged = body.data?.attributes?.price
+
+    if (typeof charged !== "number") {
+        throw new Error(`Lemon Squeezy variant ${variantId} reported no price`)
+    }
+
+    if (charged !== advertised) {
+        throw new Error(
+            `price mismatch for ${planId}/${cycle}: the site advertises ` +
+            `$${(advertised / 100).toFixed(2)} but Lemon Squeezy variant ${variantId} ` +
+            `charges $${(charged / 100).toFixed(2)} — refusing to take the payment`
+        )
+    }
+}
+
 export async function createCheckout(args: {
     uid: string
     email: string | null
@@ -136,6 +182,8 @@ export async function createCheckout(args: {
     if (!variantId) {
         throw new Error(`no Lemon Squeezy variant configured for ${args.planId}/${args.cycle}`)
     }
+
+    await assertPriceMatchesAdvertised(args.planId, args.cycle, variantId)
 
     const payload = {
         data: {
